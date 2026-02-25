@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protocolo COSCYL · Entorno Seguro en la Música</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & TOKENS ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --burg:      #7B1E3A;
+  --burg-d:    #5A1629;
+  --burg-l:    #9B3456;
+  --burg-bg:   rgba(123,30,58,0.07);
+  --burg-brd:  rgba(123,30,58,0.18);
+  --purple:    #6B4C7A;
+  --purple-bg: rgba(107,76,122,0.08);
+  --cream:     #FAF8F5;
+  --cream2:    #F2EDE8;
+  --white:     #FEFDFB;
+  --dark:      #2D2A26;
+  --mid:       #5C5752;
+  --muted:     #8C877F;
+  --border:    rgba(45,42,38,0.1);
+  --shadow-sm: 0 2px 8px rgba(123,30,58,0.08);
+  --shadow:    0 6px 24px rgba(123,30,58,0.13);
+  --shadow-lg: 0 12px 40px rgba(123,30,58,0.18);
+  --r:         16px;
+  --r-sm:      10px;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-size: 16px;
+  line-height: 1.6;
+}
+h1,h2,h3,h4 { font-family: 'Playfair Display', Georgia, serif; color: var(--dark); line-height: 1.2; }
+h1 { font-size: clamp(2rem,5vw,3.4rem); font-weight: 700; }
+h2 { font-size: clamp(1.4rem,3vw,2.1rem); font-weight: 700; }
+h3 { font-size: 1.15rem; font-weight: 600; }
+h4 { font-size: 1rem; font-weight: 600; }
+p  { color: var(--mid); line-height: 1.75; }
+a  { color: var(--burg); text-decoration: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--burg-brd); border-radius: 3px; }
+
+/* ===== NAVIGATION ===== */
+#main-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(254,253,251,0.96);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-top {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.65rem 2rem 0.45rem;
+  gap: 1rem;
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem; font-weight: 700;
+  color: var(--burg);
+  white-space: nowrap; flex-shrink: 0;
+  letter-spacing: 0.01em;
+}
+.nav-logo span { color: var(--dark); font-weight: 400; font-style: italic; }
+.nav-specials { display: flex; gap: 0.5rem; flex-shrink: 0; }
+.btn-special {
+  padding: 0.42rem 1rem;
+  border-radius: 50px;
+  font-size: 0.8rem; font-weight: 700;
+  background: var(--burg);
+  color: #fff; letter-spacing: 0.02em;
+  transition: all 0.22s ease;
+  box-shadow: 0 2px 8px rgba(123,30,58,0.25);
+}
+.btn-special:hover {
+  background: var(--burg-d);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(123,30,58,0.35);
+}
+/* 4 main tab buttons */
+.nav-tabs {
+  max-width: 860px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4,1fr);
+  border-top: 1px solid var(--border);
+}
+.nav-tab {
+  display: flex; flex-direction: column; align-items: center; gap: 0.22rem;
+  padding: 0.6rem 0.5rem 0.55rem;
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--muted);
+  border-bottom: 3px solid transparent;
+  transition: all 0.22s ease;
+  position: relative;
+}
+.nav-tab .ti { font-size: 1.25rem; display: block; transition: transform 0.2s ease; }
+.nav-tab:hover { color: var(--burg); background: var(--burg-bg); }
+.nav-tab:hover .ti { transform: translateY(-2px); }
+.nav-tab.active {
+  color: var(--burg);
+  border-bottom-color: var(--burg);
+  background: var(--burg-bg);
+  font-weight: 700;
+}
+
+/* ===== HERO ===== */
+#hero {
+  padding: 9rem 2rem 5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(123,30,58,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 30%, rgba(107,76,122,0.07) 0%, transparent 55%),
+    var(--cream);
+}
+.hero-deco {
+  position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+}
+.hero-deco span {
+  position: absolute; font-size: 1.4rem; opacity: 0.08;
+  animation: noteFloat 10s ease-in-out infinite;
+  color: var(--burg);
+}
+@keyframes noteFloat {
+  0%,100% { transform: translateY(0) rotate(-8deg); }
+  50%      { transform: translateY(-25px) rotate(8deg); }
+}
+.hero-pill {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.35rem 1rem;
+  border-radius: 50px;
+  background: var(--burg-bg);
+  border: 1px solid var(--burg-brd);
+  font-size: 0.78rem; font-weight: 600; color: var(--burg);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.03em;
+}
+.hero-title { margin-bottom: 0.75rem; }
+.hero-title em {
+  font-style: italic; color: var(--burg);
+  display: block;
+}
+.hero-sub {
+  font-size: 1.1rem; color: var(--mid);
+  max-width: 560px; margin: 0 auto 2.5rem;
+}
+.hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  padding: 0.85rem 2.2rem;
+  border-radius: 50px;
+  background: var(--burg);
+  color: #fff; font-weight: 700; font-size: 0.95rem;
+  transition: all 0.22s ease;
+  box-shadow: var(--shadow-sm);
+  letter-spacing: 0.01em;
+}
+.btn-primary:hover {
+  background: var(--burg-d);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+.btn-outline {
+  padding: 0.85rem 2.2rem;
+  border-radius: 50px;
+  border: 2px solid var(--burg);
+  color: var(--burg); font-weight: 700; font-size: 0.95rem;
+  transition: all 0.22s ease;
+}
+.btn-outline:hover {
+  background: var(--burg); color: #fff;
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+}
+.hero-stats {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1rem; max-width: 620px; margin: 3.5rem auto 0;
+}
+.hero-stat {
+  padding: 1.2rem;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow-sm);
+}
+.hero-stat .num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem; font-weight: 700; color: var(--burg); display: block;
+}
+.hero-stat .lbl { font-size: 0.77rem; color: var(--muted); font-weight: 500; }
+
+/* ===== CONTENT SECTIONS ===== */
+.section { display: none; animation: fadeUp 0.4s ease; }
+.section.active { display: block; }
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(18px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+.sec-wrap { max-width: 1060px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+.sec-head { margin-bottom: 2.5rem; }
+.sec-tag {
+  display: inline-block;
+  padding: 0.25rem 0.85rem;
+  border-radius: 50px;
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 0.65rem;
+}
+.tag-burg   { background: var(--burg-bg);   color: var(--burg);   border: 1px solid var(--burg-brd); }
+.tag-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid rgba(107,76,122,0.2); }
+.sec-desc { font-size: 1rem; color: var(--mid); margin-top: 0.4rem; max-width: 600px; }
+.divider { height: 1px; background: var(--border); margin: 2.5rem 0; }
+
+/* ===== CARDS ===== */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+  gap: 1.25rem; margin-top: 1.5rem;
+}
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  transition: all 0.28s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+  border-color: var(--burg-brd);
+}
+.card-ico {
+  width: 44px; height: 44px;
+  border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; margin-bottom: 1rem;
+  background: var(--burg-bg);
+}
+.card h3 { font-size: 1rem; margin-bottom: 0.4rem; color: var(--dark); }
+.card p  { font-size: 0.88rem; }
+
+/* ===== ACCORDION ===== */
+.accordion { margin-top: 1.25rem; }
+.acc-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  margin-bottom: 0.65rem;
+  overflow: hidden;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.acc-item.open {
+  border-color: var(--burg-brd);
+  box-shadow: var(--shadow-sm);
+}
+.acc-hd {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1.4rem;
+  color: var(--dark); font-size: 0.95rem; font-weight: 600;
+  text-align: left; background: none;
+  gap: 0.75rem;
+}
+.acc-hd:hover { background: var(--cream); }
+.acc-arr {
+  width: 26px; height: 26px; flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--burg-bg);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; color: var(--burg);
+  transition: transform 0.3s ease, background 0.2s;
+}
+.acc-item.open .acc-arr { transform: rotate(180deg); background: var(--burg); color: #fff; }
+.acc-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease;
+  padding: 0 1.4rem;
+}
+.acc-item.open .acc-body { max-height: 1200px; padding: 0 1.4rem 1.4rem; }
+.acc-body p, .acc-body li { font-size: 0.9rem; }
+.acc-body ul { padding-left: 1.2rem; margin-top: 0.5rem; }
+.acc-body li { margin-bottom: 0.4rem; color: var(--mid); }
+.chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+.chip {
+  padding: 0.28rem 0.7rem;
+  border-radius: 50px; font-size: 0.78rem;
+  background: var(--burg-bg); color: var(--burg);
+  border: 1px solid var(--burg-brd);
+  font-weight: 500;
+}
+
+/* ===== ALERTS ===== */
+.alert {
+  display: flex; gap: 1rem; align-items: flex-start;
+  padding: 1.1rem 1.4rem;
+  border-radius: var(--r);
+  margin: 1.25rem 0;
+}
+.alert-warn {
+  background: rgba(123,30,58,0.05);
+  border: 1px solid var(--burg-brd);
+}
+.alert-info {
+  background: rgba(107,76,122,0.06);
+  border: 1px solid rgba(107,76,122,0.2);
+}
+.alert-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+.alert p { font-size: 0.88rem; }
+.alert strong { color: var(--dark); }
+
+/* ===== DIAGRAM ===== */
+.diagram-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1rem; margin-top: 1.5rem;
+}
+.d-node {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.3rem;
+  transition: all 0.28s ease;
+  border-top: 4px solid transparent;
+}
+.d-node:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.dn-burg   { border-top-color: var(--burg); }
+.dn-purple { border-top-color: var(--purple); }
+.dn-mid    { border-top-color: var(--mid); }
+.dn-muted  { border-top-color: var(--muted); }
+.d-node h4 { font-size: 0.95rem; margin-bottom: 0.4rem; color: var(--dark); }
+.d-node p  { font-size: 0.85rem; }
+.diagram-center {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+  padding: 1.2rem;
+  background: var(--burg);
+  border-radius: var(--r);
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem; font-weight: 700;
+  box-shadow: var(--shadow);
+}
+
+/* ===== STEPS TIMELINE ===== */
+.steps { position: relative; margin-top: 1.5rem; }
+.steps::before {
+  content: ''; position: absolute;
+  left: 22px; top: 26px; bottom: 26px; width: 2px;
+  background: linear-gradient(to bottom, var(--burg), var(--burg-brd));
+}
+.step { display: flex; gap: 1.5rem; margin-bottom: 1.25rem; }
+.step-num {
+  width: 44px; height: 44px; flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--burg); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 0.9rem;
+  box-shadow: 0 0 0 4px var(--cream), 0 0 0 5px var(--burg-brd);
+  position: relative; z-index: 1;
+}
+.step-body {
+  flex: 1;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1rem 1.25rem;
+  transition: all 0.25s;
+}
+.step-body:hover { border-color: var(--burg-brd); box-shadow: var(--shadow-sm); transform: translateX(4px); }
+.step-body h4 { margin-bottom: 0.3rem; color: var(--dark); }
+.step-body p  { font-size: 0.87rem; }
+.step-time {
+  display: inline-block; margin-top: 0.5rem;
+  padding: 0.18rem 0.65rem; border-radius: 50px;
+  background: var(--burg-bg); color: var(--burg);
+  font-size: 0.75rem; font-weight: 600;
+  border: 1px solid var(--burg-brd);
+}
+
+/* ===== DO/DON'T ===== */
+.do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
+.do-box, .dont-box { border-radius: var(--r); padding: 1.4rem; border: 1px solid; }
+.do-box   { background: rgba(45,134,89,0.05);  border-color: rgba(45,134,89,0.25); }
+.dont-box { background: var(--burg-bg);          border-color: var(--burg-brd); }
+.do-box h4   { color: #2D8659; margin-bottom: 0.75rem; }
+.dont-box h4 { color: var(--burg); margin-bottom: 0.75rem; }
+.do-box li, .dont-box li { font-size: 0.87rem; margin-bottom: 0.4rem; color: var(--mid); }
+.do-box ul, .dont-box ul { padding-left: 1.1rem; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
+.contact-box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--burg);
+  border-radius: var(--r);
+  padding: 1.4rem;
+}
+.contact-box h4 { color: var(--burg); margin-bottom: 0.5rem; }
+.contact-box p  { font-size: 0.87rem; }
+
+/* ===== MODAL BASE ===== */
+.overlay {
+  display: none; position: fixed; inset: 0; z-index: 200;
+  background: rgba(45,42,38,0.55);
+  backdrop-filter: blur(6px);
+  overflow-y: auto;
+  align-items: flex-start; justify-content: center;
+  padding: 2rem 1rem 3rem;
+}
+.overlay.open { display: flex; }
+.modal {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  width: min(100%, 700px);
+  margin-top: 5rem;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-lg);
+  animation: zoomIn 0.28s ease;
+  position: relative;
+}
+@keyframes zoomIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+.modal-close {
+  position: absolute; top: 1.25rem; right: 1.25rem;
+  width: 34px; height: 34px;
+  border-radius: 50%; border: 1px solid var(--border);
+  background: var(--cream); color: var(--mid);
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.modal-close:hover { background: var(--burg); color: #fff; border-color: var(--burg); }
+
+/* ===== MINI-TEST ===== */
+.test-bar-wrap {
+  height: 5px; border-radius: 3px;
+  background: var(--cream2);
+  margin: 1.5rem 0; overflow: hidden;
+}
+.test-bar {
+  height: 100%; border-radius: 3px;
+  background: var(--burg);
+  transition: width 0.5s ease;
+}
+.test-qnum { font-size: 0.8rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.test-q    { font-size: 1.1rem; font-family: 'Playfair Display', serif; color: var(--dark); margin: 0.6rem 0 1.4rem; font-weight: 600; }
+.test-opts { display: flex; flex-direction: column; gap: 0.65rem; }
+.test-opt {
+  display: flex; align-items: center; gap: 0.85rem;
+  padding: 0.85rem 1.15rem;
+  background: var(--cream); border: 1.5px solid var(--border);
+  border-radius: var(--r-sm); color: var(--dark);
+  font-size: 0.9rem; font-weight: 500; text-align: left; width: 100%;
+  transition: all 0.2s ease;
+}
+.test-opt:hover:not(:disabled) { border-color: var(--burg); background: var(--burg-bg); color: var(--burg); }
+.test-opt.correct  { border-color: #2D8659; background: rgba(45,134,89,0.07); color: #1a5c38; }
+.test-opt.incorrect{ border-color: var(--burg); background: var(--burg-bg); color: var(--burg); }
+.test-opt:disabled { cursor: default; }
+.opt-ltr {
+  width: 28px; height: 28px; flex-shrink: 0;
+  border-radius: 6px; background: var(--white);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.8rem; color: var(--mid);
+}
+.test-fb {
+  display: none; margin-top: 0.85rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--r-sm); font-size: 0.88rem;
+}
+.test-fb.show { display: block; animation: fadeUp 0.25s ease; }
+.fb-ok  { background: rgba(45,134,89,0.07); border: 1px solid rgba(45,134,89,0.25); color: #1e6640; }
+.fb-err { background: var(--burg-bg); border: 1px solid var(--burg-brd); color: var(--burg-d); }
+.test-nav { display: flex; justify-content: flex-end; margin-top: 1.5rem; }
+/* Result */
+.result-wrap { text-align: center; padding: 0.5rem 0; }
+.result-score {
+  font-family: 'Playfair Display', serif;
+  font-size: 4.5rem; font-weight: 700; color: var(--burg); line-height: 1;
+}
+.result-level { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--dark); margin: 0.5rem 0 0.75rem; font-style: italic; }
+.result-tips ul { list-style: disc; padding-left: 1.2rem; text-align: left; margin-top: 1rem; }
+.result-tips li { font-size: 0.88rem; color: var(--mid); margin-bottom: 0.45rem; }
+.result-actions { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.75rem; flex-wrap: wrap; }
+
+/* ===== GAME ===== */
+.scene-selector {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(185px,1fr));
+  gap: 1rem; margin-top: 1.5rem;
+}
+.scene-card {
+  padding: 1.4rem;
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  color: var(--dark); font-weight: 600; text-align: center;
+  font-size: 0.9rem; width: 100%;
+  transition: all 0.25s ease;
+}
+.scene-card:hover {
+  border-color: var(--burg); background: var(--burg-bg);
+  color: var(--burg); transform: translateY(-4px);
+  box-shadow: var(--shadow-sm);
+}
+.scene-ico { font-size: 2.2rem; display: block; margin-bottom: 0.65rem; }
+.scene-sub { font-size: 0.78rem; color: var(--muted); font-weight: 400; display: block; margin-top: 0.2rem; }
+.game-scene { display: none; animation: fadeUp 0.35s ease; }
+.game-scene.active { display: block; }
+.narrative {
+  background: var(--cream);
+  border-left: 3px solid var(--burg);
+  padding: 1.1rem 1.4rem;
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  margin: 1.25rem 0;
+  font-size: 0.92rem; line-height: 1.8; color: var(--mid);
+}
+.scene-q { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 600; margin-bottom: 1rem; color: var(--dark); }
+.choices { display: flex; flex-direction: column; gap: 0.65rem; }
+.choice {
+  padding: 0.9rem 1.25rem;
+  background: var(--cream); border: 1.5px solid var(--border);
+  border-radius: var(--r-sm); color: var(--dark);
+  font-size: 0.9rem; text-align: left; width: 100%;
+  transition: all 0.22s ease;
+}
+.choice:hover:not(:disabled) { border-color: var(--burg); background: var(--burg-bg); color: var(--burg-d); }
+.choice:disabled { opacity: 0.6; cursor: default; }
+.consequence { display: none; margin-top: 1.25rem; }
+.consequence.show { display: block; animation: fadeUp 0.3s ease; }
+.cons-box { padding: 1.1rem 1.3rem; border-radius: var(--r-sm); margin-bottom: 0.75rem; font-size: 0.9rem; }
+.cons-good    { background: rgba(45,134,89,0.07); border: 1px solid rgba(45,134,89,0.25); color: #1e6640; }
+.cons-bad     { background: var(--burg-bg); border: 1px solid var(--burg-brd); color: var(--burg-d); }
+.cons-neutral { background: var(--purple-bg); border: 1px solid rgba(107,76,122,0.2); color: var(--purple); }
+.reflection {
+  background: var(--cream);
+  border: 1px solid var(--burg-brd);
+  border-radius: var(--r);
+  padding: 1.3rem;
+  margin-top: 1.25rem;
+}
+.reflection h4 { color: var(--burg); margin-bottom: 0.4rem; font-family: 'Playfair Display', serif; }
+.reflection p  { font-size: 0.88rem; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 720px) {
+  .nav-top  { padding: 0.55rem 1rem 0.4rem; }
+  .nav-logo { font-size: 0.8rem; }
+  .btn-special { font-size: 0.72rem; padding: 0.35rem 0.75rem; }
+  .nav-tab  { font-size: 0.62rem; padding: 0.5rem 0.25rem 0.45rem; }
+  .nav-tab .ti { font-size: 1.1rem; }
+  .sec-wrap { padding: 2rem 1.25rem 4rem; }
+  .diagram-grid { grid-template-columns: 1fr; }
+  .do-dont  { grid-template-columns: 1fr; }
+  .two-col  { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: repeat(3,1fr); gap: 0.6rem; }
+  .hero-stat .num { font-size: 1.4rem; }
+  .modal { padding: 1.75rem 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav id="main-nav" role="navigation" aria-label="Navegación principal">
+  <div class="nav-top">
+    <div class="nav-logo">COSCYL <span>· Entorno Seguro</span></div>
+    <div class="nav-specials">
+      <button class="btn-special" onclick="openTest()">🧠 Mini-test</button>
+      <button class="btn-special" onclick="openGame()">🎯 Decisiones</button>
+    </div>
+  </div>
+  <nav class="nav-tabs" role="tablist" aria-label="Secciones principales">
+    <button class="nav-tab active" onclick="showSection('intro')" role="tab" aria-selected="true">
+      <span class="ti">📋</span><span>Introducción</span>
+    </button>
+    <button class="nav-tab" onclick="showSection('conductas')" role="tab" aria-selected="false">
+      <span class="ti">⚠️</span><span>Conductas</span>
+    </button>
+    <button class="nav-tab" onclick="showSection('tipos')" role="tab" aria-selected="false">
+      <span class="ti">🔍</span><span>Tipos</span>
+    </button>
+    <button class="nav-tab" onclick="showSection('medidas')" role="tab" aria-selected="false">
+      <span class="ti">🛡️</span><span>Medidas</span>
+    </button>
+  </nav>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header id="hero">
+  <div class="hero-deco" aria-hidden="true">
+    <span style="top:12%;left:6%;animation-delay:0s">♩</span>
+    <span style="top:18%;left:88%;animation-delay:1.2s">♪</span>
+    <span style="top:65%;left:5%;animation-delay:2.1s">♫</span>
+    <span style="top:72%;left:91%;animation-delay:0.6s">♬</span>
+    <span style="top:42%;left:52%;animation-delay:1.8s">🎵</span>
+    <span style="top:82%;left:28%;animation-delay:3s">♩</span>
+    <span style="top:30%;left:72%;animation-delay:2.5s">♪</span>
+  </div>
+  <div class="hero-pill">🎓 Conservatorio Superior de Música de Castilla y León · Protocolo 2025–2029</div>
+  <h1 class="hero-title">
+    Tu música merece<br>
+    <em>un entorno seguro</em>
+  </h1>
+  <p class="hero-sub">
+    Conoce tus derechos, identifica las señales de alerta y actúa.
+    Este espacio es tuyo: claro, confidencial y sin juicios.
+  </p>
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="showSection('intro');document.getElementById('main-content').scrollIntoView({behavior:'smooth'})">
+      Explorar el protocolo
+    </button>
+    <button class="btn-outline" onclick="openTest()">
+      ¿Reconoces las señales?
+    </button>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="num">0</span>
+      <span class="lbl">Tolerancia ante el acoso</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">100%</span>
+      <span class="lbl">Confidencialidad</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">2025–29</span>
+      <span class="lbl">Vigencia del protocolo</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== MAIN ===== -->
+<main id="main-content">
+
+<!-- SECCIÓN 1 -->
+<section id="section-intro" class="section active">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <span class="sec-tag tag-burg">Sección 1</span>
+    <h2>Introducción y marco legal</h2>
+    <p class="sec-desc">El compromiso del COSCYL, tus derechos fundamentales y las bases legales que protegen a toda la comunidad educativa.</p>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-ico">🎯</div>
+      <h3>Tolerancia cero</h3>
+      <p>El COSCYL declara tolerancia <strong style="color:var(--burg)">cero</strong> ante cualquier conducta de acoso sexual. Tu dignidad e integridad son irrenunciables.</p>
+    </div>
+    <div class="card">
+      <div class="card-ico">👥</div>
+      <h3>¿A quién aplica?</h3>
+      <p>A todo el personal docente y administrativo, alumnado y personas colaboradoras externas, con independencia de su vínculo contractual.</p>
+    </div>
+    <div class="card">
+      <div class="card-ico">🔒</div>
+      <h3>Confidencialidad total</h3>
+      <p>Confidencialidad, respeto a la dignidad, protección frente a represalias y presunción de inocencia durante todo el proceso.</p>
+    </div>
+    <div class="card">
+      <div class="card-ico">⚖️</div>
+      <h3>Obligatorio para todos</h3>
+      <p>El protocolo es de obligado cumplimiento para todo el personal, alumnado y personas externas que colaboren con el COSCYL.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <h2>¿Qué es el acoso sexual?</h2>
+
+  <div class="alert alert-info" style="margin-top:1.25rem">
+    <span class="alert-icon">💡</span>
+    <div>
+      <p><strong>Definición legal:</strong> Cualquier comportamiento verbal, no verbal o físico de naturaleza sexual que tenga el propósito <em>o</em> produzca el efecto de atentar contra la dignidad de una persona, creando un entorno intimidatorio, degradante u ofensivo.</p>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top:1.25rem">
+    <div class="card">
+      <div class="card-ico">📌</div>
+      <h3>Principios clave</h3>
+      <ul style="padding-left:1.1rem;margin-top:0.5rem">
+        <li style="margin-bottom:0.4rem;color:var(--mid);font-size:0.88rem">Toda persona tiene derecho a un entorno libre de hostigamiento</li>
+        <li style="margin-bottom:0.4rem;color:var(--mid);font-size:0.88rem">La víctima nunca es responsable del acoso</li>
+        <li style="margin-bottom:0.4rem;color:var(--mid);font-size:0.88rem">No importa si el acosador/a "tenía intención": lo que cuenta es el efecto</li>
+        <li style="margin-bottom:0.4rem;color:var(--mid);font-size:0.88rem">Tanto el acoso sexual como el acoso por razón de sexo están prohibidos</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-ico">🎯</div>
+      <h3>Objetivos del protocolo</h3>
+      <ul style="padding-left:1.1rem;margin-top:0.5rem">
+        <li style="margin-bottom:0.4rem;color:var(--mid);font-size:0.88rem">Prevenir, detectar y erradicar el acoso en el conservatorio</li>
+        <li style="margin-bottom:0.4rem;color:var(--mid);font-size:0.88rem">Garantizar protección integral de las víctimas</li>
+        <li style="margin-bottom:0.4rem;color:var(--mid);font-size:0.88rem">Establecer un procedimiento ágil y eficaz para denuncias</li>
+        <li style="margin-bottom:0.4rem;color:var(--mid);font-size:0.88rem">Promover cultura de respeto, igualdad y convivencia</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <h2>Marco normativo</h2>
+  <p style="margin-top:0.4rem">Las leyes que respaldan este protocolo, explicadas de forma clara:</p>
+
+  <div class="accordion">
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>⚖️ Ley Orgánica 3/2007 — Igualdad efectiva entre mujeres y hombres</span>
+        <span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>La ley más importante en materia de igualdad en España. Obliga a todas las instituciones a prevenir el acoso sexual y a establecer protocolos de actuación. La base de todo este documento.</p>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>🎓 Ley Orgánica 2/2023 — Sistema Universitario (LOSU)</span>
+        <span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>Regula el sistema universitario español. Obliga a los centros de educación superior a garantizar entornos seguros y libres de violencia para el alumnado y el personal.</p>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>🛡️ Ley 31/1995 — Prevención de Riesgos Laborales</span>
+        <span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>El acoso sexual es un riesgo laboral reconocido. Las instituciones tienen obligación legal de proteger la salud física y psíquica de todas las personas en su entorno de trabajo y estudio.</p>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>🔐 RGPD y Ley Orgánica 3/2018 — Protección de datos</span>
+        <span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>Toda información relacionada con una denuncia de acoso está protegida por las leyes de protección de datos. Tu privacidad es un derecho fundamental durante todo el proceso.</p>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>🌍 Ley 1/2003 — Igualdad de oportunidades en Castilla y León</span>
+        <span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>Ley autonómica que refuerza la igualdad de oportunidades en CyL, directamente aplicable al COSCYL como institución de la Junta de Castilla y León.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-warn" style="margin-top:2rem">
+    <span class="alert-icon">🚨</span>
+    <div>
+      <p><strong>¿Estás en peligro inmediato?</strong> Llama al <strong>016</strong> (violencia de género, gratuito y confidencial) o al <strong>112</strong> (emergencias). Ambas líneas no aparecen en la factura del teléfono.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECCIÓN 2 -->
+<section id="section-conductas" class="section">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <span class="sec-tag tag-burg">Sección 2</span>
+    <h2>Conductas constitutivas de acoso sexual</h2>
+    <p class="sec-desc">Aprende a identificar cada tipo de comportamiento. Los ejemplos son orientativos, no exhaustivos: cualquier conducta que atente contra tu dignidad puede ser acoso.</p>
+  </div>
+
+  <div class="accordion">
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>🗣️ 2.1 Conductas verbales</span><span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>Comportamientos expresados a través de palabras, mensajes orales o escritos:</p>
+        <ul>
+          <li>Insinuaciones sexuales, proposiciones o presión para la actividad sexual</li>
+          <li>Flirteos ofensivos o no deseados</li>
+          <li>Comentarios insinuantes, indirectas o comentarios obscenos</li>
+          <li>Llamadas telefónicas o contactos por redes sociales indeseados</li>
+          <li>Bromas o comentarios sobre la apariencia sexual de una persona</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">💬 "Tienes muy buen cuerpo para ese instrumento"</span>
+          <span class="chip">📱 Mensajes a deshora de contenido sexual</span>
+          <span class="chip">😏 Chistes sexuales inapropiados</span>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>👁️ 2.2 Conductas no verbales</span><span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>Comportamientos expresados sin palabras pero igualmente hirientes:</p>
+        <ul>
+          <li>Exhibición de fotos sexualmente sugestivas o pornográficas, objetos o escritos</li>
+          <li>Miradas impúdicas y gestos de naturaleza sexual</li>
+          <li>Cartas o mensajes de correo electrónico de carácter ofensivo y sexual</li>
+          <li>Envío de imágenes íntimas o vídeos sin consentimiento</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">📸 Mostrar imágenes inapropiadas</span>
+          <span class="chip">👀 Miradas persistentes e intimidantes</span>
+          <span class="chip">✉️ Emails sexuales no solicitados</span>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>✋ 2.3 Comportamientos físicos</span><span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>Cualquier contacto físico no deseado de naturaleza sexual:</p>
+        <ul>
+          <li>Contacto físico deliberado y no solicitado</li>
+          <li>Abrazos o besos no deseados</li>
+          <li>Acercamiento físico excesivo e innecesario</li>
+          <li>Tocamientos bajo pretexto de "corrección técnica" sin consentimiento</li>
+        </ul>
+        <div class="alert alert-warn" style="margin-top:0.85rem">
+          <span class="alert-icon">🎻</span>
+          <div><p><strong>En la enseñanza musical:</strong> la corrección física de la postura o técnica debe hacerse siempre con tu consentimiento explícito. Tienes derecho a decir que no.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>🔇 2.4 Actuaciones de aislamiento</span><span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>Estrategias para aislar y excluir a una persona de su entorno:</p>
+        <ul>
+          <li>Cambiar la ubicación de la persona separándola de compañeros/as</li>
+          <li>Ignorar completamente la presencia de la persona</li>
+          <li>No dirigirle la palabra</li>
+          <li>Restringir a otros/as la posibilidad de hablar con ella</li>
+          <li>No permitir que la persona se exprese</li>
+          <li>Evitar todo contacto visual</li>
+          <li>Eliminar o restringir medios de comunicación disponibles</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">🚫 Hacer el vacío sistemáticamente</span>
+          <span class="chip">👥 Excluir del grupo de clase</span>
+          <span class="chip">📵 Bloquear comunicaciones</span>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>💊 2.5 Actividades que afectan a la salud</span><span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>Conductas que dañan deliberadamente el bienestar físico o psíquico:</p>
+        <ul>
+          <li>Amenazas y agresiones físicas</li>
+          <li>Amenazas verbales o por escrito</li>
+          <li>Gritos y/o insultos</li>
+          <li>Llamadas telefónicas atemorizantes</li>
+          <li>Provocar a la persona obligándola a reaccionar emocionalmente</li>
+          <li>Ocasionar intencionadamente gastos o destrozos en pertenencias</li>
+          <li>Exigir realizar trabajos peligrosos o perjudiciales para la salud</li>
+        </ul>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>🎭 2.6 Ataques a la reputación</span><span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>Conductas que dañan la imagen personal o profesional:</p>
+        <ul>
+          <li>Manipular la reputación mediante rumores, denigración y ridiculización</li>
+          <li>Dar a entender que la persona tiene problemas psicológicos</li>
+          <li>Burlas sobre gestos, voz, apariencia física, discapacidades o poner motes</li>
+          <li>Críticas a la nacionalidad, actitudes, creencias políticas o religiosas</li>
+          <li>Difundir fotografías o imágenes íntimas sin consentimiento</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">😤 "Ese/a siempre exagera todo"</span>
+          <span class="chip">📢 Rumores sobre la vida privada</span>
+          <span class="chip">📷 Fotos íntimas sin consentimiento</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <h3 style="margin-bottom:0.75rem">¿Qué es el acoso por razón de sexo?</h3>
+  <div class="alert alert-info">
+    <span class="alert-icon">🔍</span>
+    <div>
+      <p><strong>Acoso por razón de sexo:</strong> Cualquier comportamiento relacionado con el sexo de una persona con el propósito o efecto de atentar contra su dignidad y crear un entorno intimidatorio. Incluye conductas organizativas: juzgar el desempeño de forma ofensiva, asignar tareas sin sentido, órdenes contradictorias o negar acceso a cursos y permisos.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECCIÓN 3 -->
+<section id="section-tipos" class="section">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <span class="sec-tag tag-purple">Sección 3</span>
+    <h2>Tipos de acoso sexual</h2>
+    <p class="sec-desc">Entiende las diferencias entre las distintas formas de acoso para identificarlas mejor en tu entorno.</p>
+  </div>
+
+  <div class="diagram-grid">
+    <div class="diagram-center">
+      <span style="font-size:1.6rem">⚠️</span>
+      <span>Formas de acoso sexual en el COSCYL</span>
+    </div>
+    <div class="d-node dn-burg">
+      <h4>🔄 Quid pro quo</h4>
+      <p>Chantaje sexual: favores a cambio de beneficios académicos o laborales. Siempre implica abuso de autoridad.</p>
+    </div>
+    <div class="d-node dn-purple">
+      <h4>🌫️ Acoso ambiental</h4>
+      <p>Entorno hostil creado por conductas de naturaleza sexual. Lo puede generar cualquier persona, sin importar su rango.</p>
+    </div>
+    <div class="d-node dn-mid">
+      <h4>↔️ Horizontal</h4>
+      <p>Entre compañeros/as del mismo nivel, sin diferencia jerárquica. Frecuente en clases de conjunto y grupos de WhatsApp.</p>
+    </div>
+    <div class="d-node dn-muted">
+      <h4>↕️ Vertical</h4>
+      <p>Con relación jerárquica. Descendente (superior acosa a inferior) o ascendente (inferior a superior, menos frecuente).</p>
+    </div>
+  </div>
+
+  <div class="accordion" style="margin-top:2rem">
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>🔄 Acoso "quid pro quo" o chantaje sexual</span><span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>Consiste en <strong>forzar a la víctima a elegir entre someterse a los requerimientos sexuales o perder beneficios</strong> relacionados con:</p>
+        <ul>
+          <li>El acceso a la formación profesional</li>
+          <li>El empleo continuado o la promoción</li>
+          <li>La retribución económica o las calificaciones académicas</li>
+        </ul>
+        <div class="alert alert-warn" style="margin-top:0.85rem">
+          <span class="alert-icon">⚡</span>
+          <div><p><strong>En el ámbito musical:</strong> puede ser un/a profesor/a, tutor/a o director/a quien ejerce este tipo de chantaje relacionando las calificaciones, los solos o las oportunidades de actuación con el sometimiento sexual.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>🌫️ Acoso sexual ambiental</span><span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>La persona acosadora <strong>crea un entorno intimidatorio, hostil, degradante o humillante</strong> mediante actitudes y comportamientos indeseados de naturaleza sexual. Ejemplos:</p>
+        <ul>
+          <li>Comentarios y chistes sexuales continuados en clase o ensayos</li>
+          <li>Comentarios sobre la vida íntima o sexual de las personas</li>
+          <li>Exigir llevar ropa insinuante para actuaciones</li>
+          <li>Divulgación en el entorno de fotografías o imágenes íntimas</li>
+        </ul>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>↕️ Acoso vertical: descendente y ascendente</span><span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <div class="two-col" style="margin-top:0.5rem">
+          <div class="card">
+            <div class="card-ico">⬇️</div>
+            <h3>Descendente</h3>
+            <p>La persona acosadora <strong>ocupa un cargo superior</strong>: profesores/as, tutores/as, directores/as. Es el más frecuente y el que conlleva mayor abuso de autoridad.</p>
+          </div>
+          <div class="card">
+            <div class="card-ico">⬆️</div>
+            <h3>Ascendente</h3>
+            <p>La persona acosadora <strong>ocupa un cargo inferior</strong> al de la víctima. Menos frecuente, pero igualmente protegido por el protocolo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>💻 Violencia digital o ciberviolencia</span><span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>Cualquier conducta de acoso o agresión sexual mediante <strong>tecnologías de la información</strong>: mensajes de WhatsApp, redes sociales, email o publicación de imágenes íntimas sin consentimiento.</p>
+        <div class="alert alert-info" style="margin-top:0.85rem">
+          <span class="alert-icon">📱</span>
+          <div><p>La violencia digital <strong>no es menos grave</strong> que la presencial. Guarda capturas como evidencia y denúncialo: el protocolo del COSCYL también aplica al ámbito digital.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECCIÓN 4 -->
+<section id="section-medidas" class="section">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <span class="sec-tag tag-burg">Sección 4</span>
+    <h2>Medidas: prevención y actuación</h2>
+    <p class="sec-desc">Qué hace el COSCYL para protegerte y qué puedes hacer si vives o presencias una situación de acoso.</p>
+  </div>
+
+  <h3 style="margin-bottom:1rem">4.1 Medidas preventivas</h3>
+  <div class="cards-grid">
+    <div class="card"><div class="card-ico">📢</div><h3>Sensibilización</h3><p>Difusión del protocolo, campañas de sensibilización y talleres sobre igualdad en el conservatorio.</p></div>
+    <div class="card"><div class="card-ico">🎓</div><h3>Formación anual</h3><p>Formación específica en prevención del acoso y comunicación respetuosa para todo el personal.</p></div>
+    <div class="card"><div class="card-ico">📄</div><h3>Compromiso institucional</h3><p>Cláusulas específicas en contratos y convenios con todas las entidades externas que colaboren.</p></div>
+    <div class="card"><div class="card-ico">🔐</div><h3>Canales seguros</h3><p>Canales seguros y confidenciales para denuncias y consultas, sin riesgo de represalias.</p></div>
+  </div>
+
+  <div class="divider"></div>
+  <h3 style="margin-bottom:0.4rem">4.2 Procedimiento de actuación</h3>
+  <p style="margin-bottom:1.5rem">Si vives o presencias una situación de acoso, este es el proceso garantizado por el protocolo:</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Presentación de queja o denuncia</h4>
+        <p>Puede presentarla la víctima o cualquier persona con conocimiento de los hechos. No es anónima, pero sí <strong>estrictamente confidencial</strong>. Se usa el formulario del Anexo I del protocolo, enviado a la Comisión de Igualdad.</p>
+        <span class="step-time">Inicio del proceso</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Reunión de la Comisión Instructora</h4>
+        <p>La Comisión Instructora de Acoso (Equipo Directivo + Unidad de Igualdad + persona designada) se reúne para valorar la queja.</p>
+        <span class="step-time">Máximo 3 días laborales desde la recepción</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Fase preliminar</h4>
+        <p>Investigación inicial para determinar si hay indicios suficientes. Se pueden adoptar medidas cautelares de protección inmediata para la víctima.</p>
+        <span class="step-time">Plazo máximo: 7 días laborales</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>Expediente informativo</h4>
+        <p>Investigación detallada: entrevistas, recogida de pruebas, testimonios. La víctima está protegida durante todo el proceso.</p>
+        <span class="step-time">10 días laborales (prorrogables 3 más)</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h4>Resolución del expediente</h4>
+        <p>La Dirección adopta medidas: separación física del presunto acosador/a, suspensión temporal o régimen disciplinario, <strong>sin perjuicio para la víctima</strong>.</p>
+        <span class="step-time">Máximo 3 días laborales</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <h4>Seguimiento</h4>
+        <p>La institución hace seguimiento para garantizar que la situación se ha resuelto y que no existen represalias contra quien denunció.</p>
+        <span class="step-time">30 días naturales de seguimiento</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <h3 style="margin-bottom:1rem">¿Qué hacer y qué no hacer?</h3>
+  <div class="do-dont">
+    <div class="do-box">
+      <h4>✅ SÍ debes...</h4>
+      <ul>
+        <li>Comunicar lo que te ha ocurrido a alguien de confianza</li>
+        <li>Guardar evidencias (mensajes, emails, capturas de pantalla)</li>
+        <li>Anotar fechas, horas y posibles testigos</li>
+        <li>Dirigirte a la Comisión de Igualdad del COSCYL</li>
+        <li>Saber que estás protegido/a frente a represalias</li>
+        <li>Pedir apoyo psicológico si lo necesitas</li>
+      </ul>
+    </div>
+    <div class="dont-box">
+      <h4>❌ NO debes...</h4>
+      <ul>
+        <li>Culparte a ti mismo/a por lo que ha pasado</li>
+        <li>Pensar que "no es para tanto"</li>
+        <li>Borrar las evidencias por vergüenza</li>
+        <li>Esperar a que "pase solo"</li>
+        <li>Ceder ante el chantaje por miedo a las notas</li>
+        <li>Tener miedo a denunciar: estás legalmente protegido/a</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <h3 style="margin-bottom:1rem">¿A quién acudir?</h3>
+  <div class="two-col">
+    <div class="contact-box">
+      <h4>🏛️ Dentro del COSCYL</h4>
+      <p>Dirígete a la <strong>Comisión Instructora de Acoso del COSCYL</strong>. Envía el formulario del Anexo I a la dirección de la Comisión de Igualdad. Confidencialidad estricta garantizada.</p>
+    </div>
+    <div class="contact-box">
+      <h4>📞 Recursos externos</h4>
+      <p><strong>016</strong> — Violencia de género (gratuito, no aparece en factura)<br><strong>112</strong> — Emergencias<br><strong>Unidad de Igualdad</strong> de la Junta de Castilla y León<br><strong>Inspección de Trabajo</strong> para acoso laboral<br><a href="https://adavas-salamanca.org/" target="_blank" rel="noopener" style="color:var(--burg);font-weight:600">ADAVAS Salamanca</a> — Asociación de Atención a Víctimas de Agresiones Sexuales</p>
+    </div>
+  </div>
+
+  <div class="alert alert-warn" style="margin-top:2rem">
+    <span class="alert-icon">🛡️</span>
+    <div>
+      <p><strong>Garantía de no represalia:</strong> Las personas trabajadoras y el alumnado que denuncien de buena fe <strong>no serán sancionadas</strong>. Esta protección está respaldada por el protocolo y por la Ley Orgánica 3/2007.</p>
+    </div>
+  </div>
+</div>
+</section>
+</main>
+
+<!-- ===== MODAL MINI-TEST ===== -->
+<div id="test-overlay" class="overlay" role="dialog" aria-modal="true" aria-label="Mini-test de señales de alerta">
+  <div class="modal">
+    <button class="modal-close" onclick="closeTest()" aria-label="Cerrar">✕</button>
+
+    <div id="test-home">
+      <span class="sec-tag tag-burg" style="display:inline-block;margin-bottom:0.75rem">Mini-test interactivo</span>
+      <h2 style="font-family:'Playfair Display',serif">🧠 ¿Reconoces las señales de alerta?</h2>
+      <p style="margin:0.75rem 0 1.75rem">10 preguntas sobre el acoso sexual en entornos musicales. Al final recibirás un resultado con feedback personalizado.</p>
+      <button class="btn-primary" onclick="startTest()">Comenzar el test →</button>
+    </div>
+
+    <div id="test-questions" style="display:none">
+      <div class="test-bar-wrap"><div class="test-bar" id="test-bar" style="width:10%"></div></div>
+      <div class="test-qnum" id="test-qnum">Pregunta 1 de 10</div>
+      <div class="test-q" id="test-q"></div>
+      <div class="test-opts" id="test-opts"></div>
+      <div class="test-fb" id="test-fb"></div>
+      <div class="test-nav">
+        <button class="btn-primary" id="test-next" onclick="nextQ()" style="display:none">Siguiente →</button>
+      </div>
+    </div>
+
+    <div id="test-result" style="display:none">
+      <div class="result-wrap">
+        <div class="result-score" id="res-score"></div>
+        <div class="result-level" id="res-level"></div>
+        <p id="res-desc"></p>
+        <div class="result-tips" id="res-tips"></div>
+        <div class="result-actions">
+          <button class="btn-primary" onclick="startTest()">Repetir el test</button>
+          <button class="btn-outline" onclick="closeTest()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL GAME ===== -->
+<div id="game-overlay" class="overlay" role="dialog" aria-modal="true" aria-label="Juego de decisiones ramificadas">
+  <div class="modal">
+    <button class="modal-close" onclick="closeGame()" aria-label="Cerrar">✕</button>
+
+    <div id="game-home">
+      <span class="sec-tag tag-burg" style="display:inline-block;margin-bottom:0.75rem">Decisiones ramificadas</span>
+      <h2 style="font-family:'Playfair Display',serif">🎯 ¿Qué harías en esta situación?</h2>
+      <p style="margin:0.75rem 0 1.5rem">Tres escenarios reales del ámbito musical. Elige cómo actuarías y descubre las consecuencias de cada decisión.</p>
+      <div class="scene-selector">
+        <button class="scene-card" onclick="startScene(1)">
+          <span class="scene-ico">📱</span>
+          Escenario 1
+          <span class="scene-sub">Mensajes del profesor</span>
+        </button>
+        <button class="scene-card" onclick="startScene(2)">
+          <span class="scene-ico">🎵</span>
+          Escenario 2
+          <span class="scene-sub">Ambiente en el ensemble</span>
+        </button>
+        <button class="scene-card" onclick="startScene(3)">
+          <span class="scene-ico">🎓</span>
+          Escenario 3
+          <span class="scene-sub">Presión sobre las notas</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="game-play" style="display:none">
+      <div id="scene-1" class="game-scene">
+        <span class="sec-tag tag-burg" style="display:inline-block;margin-bottom:0.5rem">Escenario 1</span>
+        <h3 style="font-family:'Playfair Display',serif;margin-bottom:0.25rem">📱 Mensajes fuera de hora</h3>
+        <div class="narrative">Llevas semanas recibiendo mensajes de WhatsApp de tu profesor de piano. Al principio eran sobre ejercicios, pero últimamente llegan a medianoche con comentarios sobre tu aspecto: <em>"Tienes una sonrisa preciosa para estar en el escenario"</em>. Hoy te ha mandado un audio preguntando si puedes quedar el sábado, "sin el grupo, para repasar de forma más personalizada".</div>
+        <p class="scene-q">¿Qué haces?</p>
+        <div class="choices" id="ch-1">
+          <button class="choice" onclick="choose(1,'a')">A) No contestas los mensajes personales y buscas apoyo en alguien de confianza para valorar la situación</button>
+          <button class="choice" onclick="choose(1,'b')">B) Aceptas la cita para no tener problemas con las notas</button>
+          <button class="choice" onclick="choose(1,'c')">C) Le dices claramente que esos mensajes te incomodan y guardas capturas por si acaso</button>
+          <button class="choice" onclick="choose(1,'d')">D) Lo ignoras pensando que "tampoco es para tanto"</button>
+        </div>
+        <div class="consequence" id="cons-1"></div>
+        <div class="reflection" id="ref-1" style="display:none">
+          <h4>💡 Para reflexionar</h4>
+          <p>Estos mensajes configuran acoso sexual ambiental y verbal. El profesor aprovecha su posición de autoridad (acoso vertical descendente). Guardar evidencias es clave. Acudir a la Comisión de Igualdad protege a la víctima. <strong>Aceptar la cita por miedo a las notas nunca es la solución.</strong></p>
+          <button class="btn-outline" onclick="backToScenes()" style="margin-top:1rem;font-size:0.85rem">← Volver a escenarios</button>
+        </div>
+      </div>
+
+      <div id="scene-2" class="game-scene">
+        <span class="sec-tag tag-purple" style="display:inline-block;margin-bottom:0.5rem">Escenario 2</span>
+        <h3 style="font-family:'Playfair Display',serif;margin-bottom:0.25rem">🎵 Ambiente tóxico en el ensemble</h3>
+        <div class="narrative">En tu grupo de música de cámara, un compañero hace constantemente chistes sexuales sobre los cuerpos de las compañeras y comparte memes de contenido sexual en el grupo de WhatsApp del ensemble. El director/a los ve y se ríe. Algunas compañeras están visiblemente incómodas pero no dicen nada. Tú también te sientes mal en cada ensayo.</div>
+        <p class="scene-q">¿Qué haces?</p>
+        <div class="choices" id="ch-2">
+          <button class="choice" onclick="choose(2,'a')">A) Pides al compañero que pare, en el momento, delante de todos</button>
+          <button class="choice" onclick="choose(2,'b')">B) Hablas con las personas afectadas para actuar juntos/as y lo denunciáis a la Comisión de Igualdad</button>
+          <button class="choice" onclick="choose(2,'c')">C) Abandonas el ensemble para evitar la situación</button>
+          <button class="choice" onclick="choose(2,'d')">D) Capturas los mensajes del grupo y los reportas como acoso sexual ambiental</button>
+        </div>
+        <div class="consequence" id="cons-2"></div>
+        <div class="reflection" id="ref-2" style="display:none">
+          <h4>💡 Para reflexionar</h4>
+          <p>Este es un caso de acoso sexual ambiental y horizontal. El director/a que lo tolera también tiene responsabilidad. Actuar colectivamente es más efectivo y más difícil de ignorar. <strong>Nunca tenéis que abandonar un espacio que también es vuestro.</strong></p>
+          <button class="btn-outline" onclick="backToScenes()" style="margin-top:1rem;font-size:0.85rem">← Volver a escenarios</button>
+        </div>
+      </div>
+
+      <div id="scene-3" class="game-scene">
+        <span class="sec-tag tag-burg" style="display:inline-block;margin-bottom:0.5rem">Escenario 3</span>
+        <h3 style="font-family:'Playfair Display',serif;margin-bottom:0.25rem">🎓 Presión sobre las calificaciones</h3>
+        <div class="narrative">Tu tutora del TFM te ha dicho que tu trabajo "tiene lagunas importantes" y que probablemente suspenderías. Pero en la misma reunión ha añadido: <em>"Si me acompañas a cenar el jueves, podemos hablar de cómo mejorar tu nota antes del tribunal. Solo entre nosotros/as"</em>. Necesitas aprobar para terminar la carrera este año.</div>
+        <p class="scene-q">¿Qué haces?</p>
+        <div class="choices" id="ch-3">
+          <button class="choice" onclick="choose(3,'a')">A) Aceptas la cena pensando que así salvas el TFM</button>
+          <button class="choice" onclick="choose(3,'b')">B) Exiges que cualquier feedback sea por escrito o en reunión oficial, y denuncias lo ocurrido de inmediato</button>
+          <button class="choice" onclick="choose(3,'c')">C) Cambias de tutor/a sin denunciar para no tener problemas</button>
+          <button class="choice" onclick="choose(3,'d')">D) Buscas al Equipo Directivo para contarles lo ocurrido ese mismo día</button>
+        </div>
+        <div class="consequence" id="cons-3"></div>
+        <div class="reflection" id="ref-3" style="display:none">
+          <h4>💡 Para reflexionar</h4>
+          <p>Esto es acoso sexual <em>quid pro quo</em>: tu calificación a cambio de someterte a los requerimientos de tu tutora. <strong>Es un delito.</strong> Denunciarlo protege tu nota (no puede verse perjudicada por la denuncia) y protege a otras personas de la misma institución.</p>
+          <button class="btn-outline" onclick="backToScenes()" style="margin-top:1rem;font-size:0.85rem">← Volver a escenarios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== NAV ===== */
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+  event.currentTarget.classList.add('active');
+  event.currentTarget.setAttribute('aria-selected','true');
+  document.getElementById('main-content').scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ===== ACCORDION ===== */
+function toggleAcc(btn) {
+  const item = btn.closest('.acc-item');
+  const wasOpen = item.classList.contains('open');
+  btn.closest('.accordion').querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+/* ===== TEST DATA ===== */
+const questions = [
+  { q:"Tu profesor/a de instrumento te hace comentarios frecuentes sobre tu apariencia física: 'Tienes muy buen cuerpo para estar en el escenario'. ¿Es esto acoso?",
+    opts:["Sí, es acoso sexual verbal","No, es un cumplido","Solo si se repite muchas veces","Depende de si tenía intención"],
+    ok:0,
+    yes:"✅ Correcto. Los comentarios sobre el físico de naturaleza sexual son acoso verbal, independientemente de la intención del emisor. Lo que define el acoso es el efecto sobre la dignidad de la víctima.",
+    no:"❌ Los comentarios sobre el físico de naturaleza sexual son acoso verbal según la Ley Orgánica 3/2007. No importa si la persona pensaba que era un cumplido."
+  },
+  { q:"Un compañero/a te manda mensajes de WhatsApp a medianoche con chistes de contenido sexual. ¿Qué tipo de conducta es?",
+    opts:["Acoso sexual verbal y/o digital","No es acoso porque es por WhatsApp","Solo es molestia, no acoso","Es acoso solo si también te lo dice en persona"],
+    ok:0,
+    yes:"✅ Exacto. Los mensajes digitales de contenido sexual no deseado constituyen acoso sexual (ciberviolencia). Las TIC no eliminan la responsabilidad legal.",
+    no:"❌ Los mensajes digitales de contenido sexual no deseado son acoso sexual con plenas consecuencias legales. La violencia digital está explícitamente recogida en el protocolo del COSCYL."
+  },
+  { q:"Tu tutor/a te dice que si te quedas a solas con él/ella tu nota 'seguro que mejora'. ¿Cómo se llama este tipo de acoso?",
+    opts:["Acoso ambiental","Acoso quid pro quo o chantaje sexual","Acoso horizontal","No es acoso sin contacto físico"],
+    ok:1,
+    yes:"✅ ¡Bien! El acoso quid pro quo consiste en condicionar beneficios académicos o laborales a la aceptación de requerimientos sexuales. Es la forma más grave de abuso de autoridad.",
+    no:"❌ Esto es acoso quid pro quo: condicionar una nota o beneficio a la aceptación de requerimientos sexuales. Es siempre un abuso de autoridad, con independencia de que haya contacto físico."
+  },
+  { q:"En el grupo de WhatsApp de tu clase se comparten memes de contenido sexual. Algunas personas ríen, otras se sienten incómodas. ¿Es esto acoso?",
+    opts:["No, es humor entre compañeros/as","Sí, es acoso sexual ambiental horizontal","Solo si te lo mandan directamente","Es acoso solo si lo ve el/la profesora"],
+    ok:1,
+    yes:"✅ Correcto. Crear un ambiente hostil mediante contenidos sexuales en un espacio común —aunque sea digital— es acoso sexual ambiental. La incomodidad de las personas afectadas define el efecto.",
+    no:"❌ Los contenidos sexuales en grupos de clase crean un ambiente hostil que constituye acoso sexual ambiental. Que 'algunos se rían' no lo justifica ni lo convierte en aceptable."
+  },
+  { q:"Un/a compañero/a te ignora sistemáticamente, hace que nadie te hable y te excluye de todos los grupos. ¿Puede ser acoso?",
+    opts:["No, es solo un conflicto personal","Sí, son actuaciones de aislamiento constitutivas de acoso","Solo si también hay insultos","Solo si lo hace un/a profesor/a"],
+    ok:1,
+    yes:"✅ Muy bien. El aislamiento sistemático —ignorar, excluir, bloquear comunicaciones— está explícitamente recogido como conducta constitutiva de acoso en el protocolo del COSCYL.",
+    no:"❌ El aislamiento sistemático (ignorar, excluir, impedir comunicaciones) es una conducta constitutiva de acoso reconocida legalmente, independientemente de quién la realice."
+  },
+  { q:"Un/a profesor/a corrige tu postura al tocar tocándote repetidamente sin pedirte permiso. ¿Cuándo puede ser acoso?",
+    opts:["Nunca, forma parte de la enseñanza musical","Cuando es repetido, innecesario o de naturaleza sexual sin consentimiento","Solo si te hace daño físico","Solo si hay otros testigos"],
+    ok:1,
+    yes:"✅ Exacto. En la enseñanza musical, el contacto físico para corrección técnica debe ser siempre con el consentimiento del alumno/a. Si es excesivo, innecesario o de naturaleza sexual, puede constituir acoso.",
+    no:"❌ Tienes derecho a que cualquier corrección física sea con tu consentimiento. El contacto físico repetido, innecesario o que invade tu intimidad puede ser acoso aunque se justifique como 'corrección técnica'."
+  },
+  { q:"Alguien difunde rumores sobre tu vida privada y dice que 'tienes problemas psicológicos'. ¿Es conducta constitutiva de acoso?",
+    opts:["No, son solo cotilleos","Sí, son ataques a la reputación personal reconocidos como acoso","Solo si hay pruebas escritas","Solo si te afecta gravemente"],
+    ok:1,
+    yes:"✅ Correcto. Los ataques a la vida privada y a la reputación —rumores, denigración, ridiculización— están recogidos explícitamente en el protocolo del COSCYL como conductas de acoso.",
+    no:"❌ Manipular la reputación de alguien mediante rumores, denigración o sugerir que tiene problemas psicológicos son ataques a la vida privada reconocidos como conductas de acoso."
+  },
+  { q:"Una profesora acosa a un alumno. Ella tiene cargo superior. ¿Qué tipo de acoso es?",
+    opts:["Acoso horizontal","Acoso vertical ascendente","Acoso vertical descendente","No es posible en esa dirección"],
+    ok:2,
+    yes:"✅ Bien. Cuando la persona acosadora tiene cargo superior (profesora respecto al alumno), es acoso vertical descendente, el caso más frecuente.",
+    no:"❌ La profesora tiene cargo superior al alumno, por lo que es acoso vertical descendente. El ascendente sería si el acosador/a ocupa un cargo inferior."
+  },
+  { q:"Una persona que sufre acoso no denuncia por miedo a no ser creída. ¿Qué garantiza el protocolo?",
+    opts:["Nada, no hay garantías escritas","Confidencialidad, protección frente a represalias y presunción de inocencia","Solo confidencialidad","Solo aplica al personal docente"],
+    ok:1,
+    yes:"✅ Exacto. El protocolo garantiza expresamente: confidencialidad total, protección frente a represalias, presunción de inocencia y que quien denuncia de buena fe no será sancionado/a.",
+    no:"❌ El protocolo garantiza confidencialidad, protección frente a represalias y que quien denuncia de buena fe no será sancionado/a. Son garantías vinculantes para toda la institución."
+  },
+  { q:"¿Puede cualquier persona del conservatorio —no solo la víctima— presentar una denuncia por acoso?",
+    opts:["No, solo la víctima directa","Sí, cualquier persona con conocimiento de los hechos","Solo el personal docente","Solo un familiar de la víctima"],
+    ok:1,
+    yes:"✅ Correcto. El protocolo del COSCYL permite que cualquier persona con conocimiento de una situación de acoso pueda presentar la queja, no solo la víctima directa.",
+    no:"❌ La denuncia puede presentarla tanto la víctima como cualquier persona con conocimiento de los hechos. Actuar como testigo o apoyo también está protegido."
+  }
+];
+
+let cQ = 0, score = 0, answered = false;
+
+function startTest() {
+  cQ = 0; score = 0; answered = false;
+  document.getElementById('test-home').style.display = 'none';
+  document.getElementById('test-result').style.display = 'none';
+  document.getElementById('test-questions').style.display = 'block';
+  renderQ();
+}
+function renderQ() {
+  const d = questions[cQ];
+  document.getElementById('test-qnum').textContent = `Pregunta ${cQ+1} de ${questions.length}`;
+  document.getElementById('test-q').textContent = d.q;
+  document.getElementById('test-bar').style.width = ((cQ+1)/questions.length*100)+'%';
+  document.getElementById('test-fb').className = 'test-fb';
+  document.getElementById('test-next').style.display = 'none';
+  answered = false;
+  const wrap = document.getElementById('test-opts');
+  wrap.innerHTML = '';
+  ['A','B','C','D'].forEach((l,i) => {
+    const b = document.createElement('button');
+    b.className = 'test-opt';
+    b.innerHTML = `<span class="opt-ltr">${l}</span>${d.opts[i]}`;
+    b.onclick = () => answerQ(i);
+    wrap.appendChild(b);
+  });
+}
+function answerQ(idx) {
+  if (answered) return;
+  answered = true;
+  const d = questions[cQ];
+  document.querySelectorAll('.test-opt').forEach(b => b.disabled = true);
+  document.querySelectorAll('.test-opt')[d.ok].classList.add('correct');
+  const fb = document.getElementById('test-fb');
+  if (idx === d.ok) { score++; fb.textContent = d.yes; fb.className = 'test-fb show fb-ok'; }
+  else { document.querySelectorAll('.test-opt')[idx].classList.add('incorrect'); fb.textContent = d.no; fb.className = 'test-fb show fb-err'; }
+  const nb = document.getElementById('test-next');
+  nb.textContent = cQ < questions.length-1 ? 'Siguiente →' : 'Ver resultado →';
+  nb.style.display = 'block';
+}
+function nextQ() {
+  cQ++;
+  if (cQ >= questions.length) { showResult(); return; }
+  renderQ();
+}
+function showResult() {
+  document.getElementById('test-questions').style.display = 'none';
+  document.getElementById('test-result').style.display = 'block';
+  document.getElementById('res-score').textContent = `${score}/${questions.length}`;
+  let level, desc, tips;
+  if (score >= 9) {
+    level = 'Nivel experto/a';
+    desc = 'Tienes un conocimiento sólido sobre el acoso sexual y las señales de alerta. ¡Eres parte de la solución!';
+    tips = ['Comparte este conocimiento con tu entorno','Actúa como aliado/a cuando veas situaciones de acoso','Conoces el protocolo: úsalo si es necesario'];
+  } else if (score >= 7) {
+    level = 'Nivel avanzado';
+    desc = 'Identificas bien la mayoría de situaciones. Repasa los conceptos donde fallaste para tener una visión completa.';
+    tips = ['Revisa la sección "Tipos de acoso" para clarificar diferencias','El acoso digital tiene las mismas consecuencias legales','Consulta los pasos del procedimiento de denuncia'];
+  } else if (score >= 5) {
+    level = 'Nivel intermedio';
+    desc = 'Tienes nociones básicas pero hay situaciones que aún no identificas como acoso. ¡Sigue aprendiendo!';
+    tips = ['Lee la sección 2: "Conductas constitutivas"','El acoso ambiental es más difícil de identificar pero igual de grave','Recuerda que el acoso no requiere contacto físico','Consulta la sección de Medidas para saber cómo actuar'];
+  } else {
+    level = 'Nivel inicial';
+    desc = 'Hay conceptos importantes sobre el acoso que aún necesitas conocer. Este protocolo es para protegerte.';
+    tips = ['Explora todas las secciones de esta web','El acoso puede ser verbal, no verbal, físico o digital','No tienes que estar seguro/a para pedir ayuda','Llama al 016 si necesitas orientación (gratuito y confidencial)'];
+  }
+  document.getElementById('res-level').textContent = level;
+  document.getElementById('res-desc').textContent = desc;
+  document.getElementById('res-tips').innerHTML = '<ul>'+tips.map(t=>`<li>${t}</li>`).join('')+'</ul>';
+}
+function openTest() {
+  document.getElementById('test-overlay').classList.add('open');
+  document.getElementById('test-home').style.display='block';
+  document.getElementById('test-questions').style.display='none';
+  document.getElementById('test-result').style.display='none';
+  document.body.style.overflow='hidden';
+}
+function closeTest() { document.getElementById('test-overlay').classList.remove('open'); document.body.style.overflow=''; }
+
+/* ===== GAME ===== */
+const gcons = {
+  1:{a:{t:'good',tx:"✅ Buscar apoyo te protege. Las personas de confianza pueden acompañarte en el proceso de denuncia y ayudarte a valorar la situación con perspectiva."},b:{t:'bad',tx:"⚠️ Aceptar por miedo a las notas es exactamente lo que busca el acosador. El protocolo garantiza que tu situación académica no puede verse perjudicada por denunciar."},c:{t:'good',tx:"✅ Marcar límites claramente y guardar evidencias son dos pasos clave. Las capturas de pantalla son fundamentales si decides denunciar formalmente."},d:{t:'bad',tx:"⚠️ Ignorar la situación raramente la resuelve. El acoso tiende a escalar. Minimizar lo que sientes es una respuesta normal, pero no te protege."}},
+  2:{a:{t:'neutral',tx:"💡 Puede funcionar, pero confrontar en público puede generar resistencia. Si el director/a no te respalda, tu posición se complica. Considera también la denuncia formal."},b:{t:'good',tx:"✅ La acción colectiva es muy efectiva y más difícil de ignorar. Con varias testimonios, la Comisión de Igualdad tomará la situación más en serio."},c:{t:'bad',tx:"⚠️ Abandonar el ensemble significa que el acoso 'gana'. Tienes tanto derecho a ese espacio como cualquier otra persona. Nunca deberías ser tú quien tenga que marcharse."},d:{t:'good',tx:"✅ Documentar los mensajes como evidencia es clave. El acoso ambiental digital deja rastro. Reportarlo formalmente obliga a la institución a actuar."}},
+  3:{a:{t:'bad',tx:"⚠️ Acceder al chantaje no garantiza la nota y te sitúa en mayor vulnerabilidad. El acosador/a tendrá más poder. Nunca debes ceder ante el chantaje sexual."},b:{t:'good',tx:"✅ Perfecto. Exigir canales oficiales es una protección. La denuncia inmediata activa el protocolo y protege tu calificación además de a otras posibles víctimas."},c:{t:'neutral',tx:"💡 Cambiar de tutor/a te protege a ti, pero no a otras personas. Denunciar aunque cambies es importante para poner fin a un comportamiento que puede ser sistemático."},d:{t:'good',tx:"✅ Actuar ese mismo día activa la protección institucional. Cuanto antes se actúa, más fácil es reconstruir los hechos y garantizar tu protección."}}
+};
+const tmap = {good:'cons-good', bad:'cons-bad', neutral:'cons-neutral'};
+
+function startScene(n) {
+  document.getElementById('game-home').style.display='none';
+  document.getElementById('game-play').style.display='block';
+  document.querySelectorAll('.game-scene').forEach(s => s.classList.remove('active'));
+  document.getElementById('scene-'+n).classList.add('active');
+  document.getElementById('cons-'+n).className='consequence';
+  document.getElementById('ref-'+n).style.display='none';
+  document.querySelectorAll('#ch-'+n+' .choice').forEach(b => { b.disabled=false; b.style.opacity='1'; });
+}
+function choose(scene, ch) {
+  const c = gcons[scene][ch];
+  const el = document.getElementById('cons-'+scene);
+  el.innerHTML = `<div class="cons-box ${tmap[c.t]}">${c.tx}</div>`;
+  el.className = 'consequence show';
+  document.getElementById('ref-'+scene).style.display='block';
+  document.querySelectorAll('#ch-'+scene+' .choice').forEach(b => { b.disabled=true; b.style.opacity='0.55'; });
+}
+function backToScenes() {
+  document.getElementById('game-play').style.display='none';
+  document.getElementById('game-home').style.display='block';
+}
+function openGame() {
+  document.getElementById('game-overlay').classList.add('open');
+  document.getElementById('game-home').style.display='block';
+  document.getElementById('game-play').style.display='none';
+  document.body.style.overflow='hidden';
+}
+function closeGame() { document.getElementById('game-overlay').classList.remove('open'); document.body.style.overflow=''; }
+
+document.getElementById('test-overlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeTest(); });
+document.getElementById('game-overlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeGame(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape'){closeTest();closeGame();} });
+</script>
+</body>
+</html>
