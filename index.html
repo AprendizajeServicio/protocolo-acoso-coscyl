@@ -117,7 +117,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* ===== HERO ===== */
 #hero {
-  padding: 4.5rem 2rem 4rem;
+  padding: 9rem 2rem 5rem;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -202,7 +202,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .hero-stat .lbl { font-size: 0.77rem; color: var(--muted); font-weight: 500; }
 
 /* ===== CONTENT SECTIONS ===== */
-.section { display: block; }
+.section { display: block; scroll-margin-top: 92px; }
 @keyframes fadeUp {
   from { opacity:0; transform: translateY(18px); }
   to   { opacity:1; transform: translateY(0); }
@@ -554,6 +554,65 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .reflection h4 { color: var(--burg); margin-bottom: 0.4rem; font-family: 'Playfair Display', serif; }
 .reflection p  { font-size: 0.88rem; }
 
+/* ===== SECTION CHAPTER BANNERS ===== */
+.section + .section { border-top: 3px solid var(--burg-brd); }
+#section-intro     { background: var(--cream); }
+#section-conductas { background: var(--white); }
+#section-tipos     { background: #F5F0F8; }
+#section-medidas   { background: var(--white); }
+
+.section-chapter {
+  position: relative; overflow: hidden;
+  padding: 2.75rem 0 2.25rem;
+  background: linear-gradient(135deg, var(--burg) 0%, var(--burg-d) 100%);
+}
+#section-conductas .section-chapter {
+  background: linear-gradient(135deg, #7a2d35 0%, #5c1f25 100%);
+}
+#section-tipos .section-chapter {
+  background: linear-gradient(135deg, var(--purple) 0%, #4a3560 100%);
+}
+#section-medidas .section-chapter {
+  background: linear-gradient(135deg, #2D2A26 0%, #47433d 100%);
+}
+.section-chapter::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 80% 50%, rgba(255,255,255,0.12) 0%, transparent 60%);
+}
+.chapter-inner {
+  max-width: 1060px; margin: 0 auto; padding: 0 2rem;
+  position: relative; z-index: 1;
+}
+.chapter-num {
+  position: absolute; right: 2.5rem; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Playfair Display', serif;
+  font-size: 8rem; font-weight: 700; line-height: 1;
+  color: rgba(255,255,255,0.11);
+  pointer-events: none; user-select: none; z-index: 0;
+}
+.section-chapter .sec-tag {
+  background: rgba(255,255,255,0.22);
+  border-color: rgba(255,255,255,0.4);
+  color: #fff;
+}
+.section-chapter h2 { color: #fff; margin: 0.45rem 0 0; }
+.section-chapter .sec-desc {
+  color: rgba(255,255,255,0.87);
+  margin-top: 0.4rem; max-width: 620px;
+}
+
+/* Section breadcrumb indicator (scroll progress) */
+#scroll-indicator {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 200;
+  background: var(--cream2);
+}
+#scroll-bar {
+  height: 100%; width: 0;
+  background: linear-gradient(90deg, var(--burg), var(--purple));
+  transition: width 0.1s ease;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 720px) {
   .nav-top  { padding: 0.55rem 1rem 0.4rem; }
@@ -562,6 +621,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .nav-tab  { font-size: 0.62rem; padding: 0.5rem 0.25rem 0.45rem; }
   .nav-tab .ti { font-size: 1.1rem; }
   .sec-wrap { padding: 2rem 1.25rem 4rem; }
+  .chapter-num { font-size: 5rem; right: 1rem; }
+  .section-chapter { padding: 1.75rem 0 1.5rem; }
   .diagram-grid { grid-template-columns: 1fr; }
   .do-dont  { grid-template-columns: 1fr; }
   .two-col  { grid-template-columns: 1fr; }
@@ -569,39 +630,36 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .hero-stat .num { font-size: 1.4rem; }
   .modal { padding: 1.75rem 1.25rem; }
 }
-
-/* ===== SCROLL CONTINUO ===== */
-.section { scroll-margin-top: 1rem; }
-#hero { border-bottom: 2px solid var(--border); }
-body { padding-top: 0; }
-
-/* ===== TEST / GAME INLINE ===== */
-.inline-tool {
-  background: var(--cream2);
-  border-top: 3px solid var(--burg);
-}
-.inline-tool .sec-wrap { padding: 3rem 2rem 4rem; }
-.inline-game {
-  background: var(--purple-bg);
-  border-top: 3px solid var(--purple);
-}
-
-/* Reset modal styles para inline */
-.test-inline-wrap, .game-inline-wrap {
-  max-width: 700px;
-  margin: 0 auto;
-}
-.game-scene { display: none; animation: fadeUp 0.35s ease; }
-.game-scene.active { display: block; }
-.consequence { display: none; margin-top: 1.25rem; }
-.consequence.show { display: block; animation: fadeUp 0.3s ease; }
-.test-fb { display: none; margin-top: 0.85rem; padding: 0.9rem 1.1rem; border-radius: var(--r-sm); font-size: 0.88rem; }
-.test-fb.show { display: block; animation: fadeUp 0.25s ease; }
 </style>
 </head>
 <body>
 
-<!-- nav eliminado -->
+<!-- ===== SCROLL PROGRESS BAR ===== -->
+<div id="scroll-indicator" aria-hidden="true"><div id="scroll-bar"></div></div>
+
+<!-- ===== NAV ===== -->
+<nav id="main-nav" role="navigation" aria-label="Navegación principal">
+  <div class="nav-top">
+    <div class="nav-logo">COSCYL <span>· Entorno Seguro</span></div>
+    <div class="nav-specials">
+      <button class="btn-special" onclick="openTest()">🧠 Mini-test</button>
+      <button class="btn-special" onclick="openGame()">🎯 Decisiones</button>
+    </div>
+  </div>
+  <nav class="nav-tabs" role="tablist" aria-label="Secciones principales">
+    <button class="nav-tab active" onclick="showSection('intro')" data-section="intro" role="tab" aria-selected="true">
+      <span class="ti">📋</span><span>Introducción</span>
+    </button>
+    <button class="nav-tab" onclick="showSection('conductas')" data-section="conductas" role="tab" aria-selected="false">
+      <span class="ti">⚠️</span><span>Conductas</span>
+    </button>
+    <button class="nav-tab" onclick="showSection('tipos')" data-section="tipos" role="tab" aria-selected="false">
+      <span class="ti">🔍</span><span>Tipos</span>
+    </button>
+    <button class="nav-tab" onclick="showSection('medidas')" data-section="medidas" role="tab" aria-selected="false">
+      <span class="ti">🛡️</span><span>Medidas</span>
+    </button>
+  </nav>
 </nav>
 
 <!-- ===== HERO ===== -->
@@ -625,7 +683,12 @@ body { padding-top: 0; }
     Este espacio es tuyo: claro, confidencial y sin juicios.
   </p>
   <div class="hero-actions">
-    <a class="btn-primary" href="#section-intro">Explorar el protocolo ↓</a>
+    <button class="btn-primary" onclick="showSection('intro');document.getElementById('main-content').scrollIntoView({behavior:'smooth'})">
+      Explorar el protocolo
+    </button>
+    <button class="btn-outline" onclick="openTest()">
+      ¿Reconoces las señales?
+    </button>
   </div>
   <div class="hero-stats">
     <div class="hero-stat">
@@ -647,13 +710,16 @@ body { padding-top: 0; }
 <main id="main-content">
 
 <!-- SECCIÓN 1 -->
-<section id="section-intro" class="section">
-<div class="sec-wrap">
-  <div class="sec-head">
-    <span class="sec-tag tag-burg">Sección 1</span>
+<section id="section-intro" class="section active">
+<div class="section-chapter">
+  <div class="chapter-inner">
+    <span class="sec-tag">Sección 1</span>
     <h2>Introducción y marco legal</h2>
     <p class="sec-desc">El compromiso del COSCYL, tus derechos fundamentales y las bases legales que protegen a toda la comunidad educativa.</p>
   </div>
+  <span class="chapter-num" aria-hidden="true">01</span>
+</div>
+<div class="sec-wrap">
 
   <div class="cards-grid">
     <div class="card">
@@ -774,12 +840,15 @@ body { padding-top: 0; }
 
 <!-- SECCIÓN 2 -->
 <section id="section-conductas" class="section">
-<div class="sec-wrap">
-  <div class="sec-head">
-    <span class="sec-tag tag-burg">Sección 2</span>
+<div class="section-chapter">
+  <div class="chapter-inner">
+    <span class="sec-tag">Sección 2</span>
     <h2>Conductas constitutivas de acoso sexual</h2>
     <p class="sec-desc">Aprende a identificar cada tipo de comportamiento. Los ejemplos son orientativos, no exhaustivos: cualquier conducta que atente contra tu dignidad puede ser acoso.</p>
   </div>
+  <span class="chapter-num" aria-hidden="true">02</span>
+</div>
+<div class="sec-wrap">
 
   <div class="accordion">
     <div class="acc-item">
@@ -913,12 +982,15 @@ body { padding-top: 0; }
 
 <!-- SECCIÓN 3 -->
 <section id="section-tipos" class="section">
-<div class="sec-wrap">
-  <div class="sec-head">
-    <span class="sec-tag tag-purple">Sección 3</span>
+<div class="section-chapter">
+  <div class="chapter-inner">
+    <span class="sec-tag">Sección 3</span>
     <h2>Tipos de acoso sexual</h2>
     <p class="sec-desc">Entiende las diferencias entre las distintas formas de acoso para identificarlas mejor en tu entorno.</p>
   </div>
+  <span class="chapter-num" aria-hidden="true">03</span>
+</div>
+<div class="sec-wrap">
 
   <div class="diagram-grid">
     <div class="diagram-center">
@@ -1012,12 +1084,15 @@ body { padding-top: 0; }
 
 <!-- SECCIÓN 4 -->
 <section id="section-medidas" class="section">
-<div class="sec-wrap">
-  <div class="sec-head">
-    <span class="sec-tag tag-burg">Sección 4</span>
+<div class="section-chapter">
+  <div class="chapter-inner">
+    <span class="sec-tag">Sección 4</span>
     <h2>Medidas: prevención y actuación</h2>
     <p class="sec-desc">Qué hace el COSCYL para protegerte y qué puedes hacer si vives o presencias una situación de acoso.</p>
   </div>
+  <span class="chapter-num" aria-hidden="true">04</span>
+</div>
+<div class="sec-wrap">
 
   <h3 style="margin-bottom:1rem">4.1 Medidas preventivas</h3>
   <div class="cards-grid">
@@ -1130,21 +1205,21 @@ body { padding-top: 0; }
   </div>
 </div>
 </section>
+</main>
 
-<!-- ===== SECCIÓN INLINE: MINI-TEST ===== -->
-<section id="section-test" class="section inline-tool">
-<div class="sec-wrap">
-  <div class="test-inline-wrap">
-    <div id="test-home-inline">
-      <div class="sec-head">
-        <span class="sec-tag tag-burg">Test interactivo</span>
-        <h2>🧠 ¿Reconoces las señales de alerta?</h2>
-        <p class="sec-desc">10 preguntas sobre el acoso sexual en entornos musicales. Al final recibirás un resultado con feedback personalizado.</p>
-      </div>
+<!-- ===== MODAL MINI-TEST ===== -->
+<div id="test-overlay" class="overlay" role="dialog" aria-modal="true" aria-label="Mini-test de señales de alerta">
+  <div class="modal">
+    <button class="modal-close" onclick="closeTest()" aria-label="Cerrar">✕</button>
+
+    <div id="test-home">
+      <span class="sec-tag tag-burg" style="display:inline-block;margin-bottom:0.75rem">Mini-test interactivo</span>
+      <h2 style="font-family:'Playfair Display',serif">🧠 ¿Reconoces las señales de alerta?</h2>
+      <p style="margin:0.75rem 0 1.75rem">10 preguntas sobre el acoso sexual en entornos musicales. Al final recibirás un resultado con feedback personalizado.</p>
       <button class="btn-primary" onclick="startTest()">Comenzar el test →</button>
     </div>
 
-    <div id="test-questions-inline" style="display:none">
+    <div id="test-questions" style="display:none">
       <div class="test-bar-wrap"><div class="test-bar" id="test-bar" style="width:10%"></div></div>
       <div class="test-qnum" id="test-qnum">Pregunta 1 de 10</div>
       <div class="test-q" id="test-q"></div>
@@ -1155,7 +1230,7 @@ body { padding-top: 0; }
       </div>
     </div>
 
-    <div id="test-result-inline" style="display:none">
+    <div id="test-result" style="display:none">
       <div class="result-wrap">
         <div class="result-score" id="res-score"></div>
         <div class="result-level" id="res-level"></div>
@@ -1163,23 +1238,22 @@ body { padding-top: 0; }
         <div class="result-tips" id="res-tips"></div>
         <div class="result-actions">
           <button class="btn-primary" onclick="startTest()">Repetir el test</button>
+          <button class="btn-outline" onclick="closeTest()">Cerrar</button>
         </div>
       </div>
     </div>
   </div>
 </div>
-</section>
 
-<!-- ===== SECCIÓN INLINE: DECISIONES ===== -->
-<section id="section-game" class="section inline-game">
-<div class="sec-wrap">
-  <div class="game-inline-wrap">
-    <div id="game-home-inline">
-      <div class="sec-head">
-        <span class="sec-tag tag-purple">Decisiones ramificadas</span>
-        <h2>🎯 ¿Qué harías en esta situación?</h2>
-        <p class="sec-desc">Tres escenarios reales del ámbito musical. Elige cómo actuarías y descubre las consecuencias de cada decisión.</p>
-      </div>
+<!-- ===== MODAL GAME ===== -->
+<div id="game-overlay" class="overlay" role="dialog" aria-modal="true" aria-label="Juego de decisiones ramificadas">
+  <div class="modal">
+    <button class="modal-close" onclick="closeGame()" aria-label="Cerrar">✕</button>
+
+    <div id="game-home">
+      <span class="sec-tag tag-burg" style="display:inline-block;margin-bottom:0.75rem">Decisiones ramificadas</span>
+      <h2 style="font-family:'Playfair Display',serif">🎯 ¿Qué harías en esta situación?</h2>
+      <p style="margin:0.75rem 0 1.5rem">Tres escenarios reales del ámbito musical. Elige cómo actuarías y descubre las consecuencias de cada decisión.</p>
       <div class="scene-selector">
         <button class="scene-card" onclick="startScene(1)">
           <span class="scene-ico">📱</span>
@@ -1189,7 +1263,7 @@ body { padding-top: 0; }
         <button class="scene-card" onclick="startScene(2)">
           <span class="scene-ico">🎵</span>
           Escenario 2
-          <span class="scene-sub">Ambiente en música de cámara</span>
+          <span class="scene-sub">Ambiente en el ensemble</span>
         </button>
         <button class="scene-card" onclick="startScene(3)">
           <span class="scene-ico">🎓</span>
@@ -1199,7 +1273,7 @@ body { padding-top: 0; }
       </div>
     </div>
 
-    <div id="game-play-inline" style="display:none">
+    <div id="game-play" style="display:none">
       <div id="scene-1" class="game-scene">
         <span class="sec-tag tag-burg" style="display:inline-block;margin-bottom:0.5rem">Escenario 1</span>
         <h3 style="font-family:'Playfair Display',serif;margin-bottom:0.25rem">📱 Mensajes fuera de hora</h3>
@@ -1221,7 +1295,7 @@ body { padding-top: 0; }
 
       <div id="scene-2" class="game-scene">
         <span class="sec-tag tag-purple" style="display:inline-block;margin-bottom:0.5rem">Escenario 2</span>
-        <h3 style="font-family:'Playfair Display',serif;margin-bottom:0.25rem">🎵 Ambiente tóxico en música de cámara</h3>
+        <h3 style="font-family:'Playfair Display',serif;margin-bottom:0.25rem">🎵 Ambiente tóxico en el ensemble</h3>
         <div class="narrative">En tu grupo de música de cámara, un compañero hace constantemente chistes sexuales sobre los cuerpos de las compañeras y comparte memes de contenido sexual en el grupo de WhatsApp del ensemble. El director/a los ve y se ríe. Algunas compañeras están visiblemente incómodas pero no dicen nada. Tú también te sientes mal en cada ensayo.</div>
         <p class="scene-q">¿Qué haces?</p>
         <div class="choices" id="ch-2">
@@ -1241,10 +1315,10 @@ body { padding-top: 0; }
       <div id="scene-3" class="game-scene">
         <span class="sec-tag tag-burg" style="display:inline-block;margin-bottom:0.5rem">Escenario 3</span>
         <h3 style="font-family:'Playfair Display',serif;margin-bottom:0.25rem">🎓 Presión sobre las calificaciones</h3>
-        <div class="narrative">Tu tutor del TFG te ha dicho que tu trabajo "tiene lagunas importantes" y que probablemente suspenderías. Pero en la misma reunión ha añadido: <em>"Si me acompañas a cenar el jueves, podemos hablar de cómo mejorar tu nota antes del tribunal. Solo entre nosotros/as"</em>. Necesitas aprobar para terminar la carrera este año.</div>
+        <div class="narrative">Tu tutora del TFM te ha dicho que tu trabajo "tiene lagunas importantes" y que probablemente suspenderías. Pero en la misma reunión ha añadido: <em>"Si me acompañas a cenar el jueves, podemos hablar de cómo mejorar tu nota antes del tribunal. Solo entre nosotros/as"</em>. Necesitas aprobar para terminar la carrera este año.</div>
         <p class="scene-q">¿Qué haces?</p>
         <div class="choices" id="ch-3">
-          <button class="choice" onclick="choose(3,'a')">A) Aceptas la cena pensando que así salvas el TFG</button>
+          <button class="choice" onclick="choose(3,'a')">A) Aceptas la cena pensando que así salvas el TFM</button>
           <button class="choice" onclick="choose(3,'b')">B) Exiges que cualquier feedback sea por escrito o en reunión oficial, y denuncias lo ocurrido de inmediato</button>
           <button class="choice" onclick="choose(3,'c')">C) Cambias de tutor/a sin denunciar para no tener problemas</button>
           <button class="choice" onclick="choose(3,'d')">D) Buscas al Equipo Directivo para contarles lo ocurrido ese mismo día</button>
@@ -1259,13 +1333,41 @@ body { padding-top: 0; }
     </div>
   </div>
 </div>
-</section>
-
-</main>
-
-
 
 <script>
+/* ===== NAV ===== */
+function setActiveTab(id) {
+  document.querySelectorAll('.nav-tab').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-selected', 'false');
+  });
+  const tab = document.querySelector(`.nav-tab[data-section="${id}"]`);
+  if (tab) { tab.classList.add('active'); tab.setAttribute('aria-selected', 'true'); }
+}
+
+function showSection(id) {
+  const target = document.getElementById('section-' + id);
+  if (target) target.scrollIntoView({ behavior: 'smooth' });
+  setActiveTab(id);
+}
+
+// Scroll spy: actualiza la pestaña activa al hacer scroll
+const _sectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      setActiveTab(e.target.id.replace('section-', ''));
+    }
+  });
+}, { threshold: 0.18, rootMargin: '-88px 0px -52% 0px' });
+document.querySelectorAll('.section').forEach(s => _sectionObserver.observe(s));
+
+// Barra de progreso de scroll
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const scrolled = doc.scrollTop / (doc.scrollHeight - doc.clientHeight);
+  document.getElementById('scroll-bar').style.width = (scrolled * 100) + '%';
+}, { passive: true });
+
 /* ===== ACCORDION ===== */
 function toggleAcc(btn) {
   const item = btn.closest('.acc-item');
@@ -1274,7 +1376,7 @@ function toggleAcc(btn) {
   if (!wasOpen) item.classList.add('open');
 }
 
-/* ===== MINI-TEST DATA ===== */
+/* ===== TEST DATA ===== */
 const questions = [
   { q:"Tu profesor/a de instrumento te hace comentarios frecuentes sobre tu apariencia física: 'Tienes muy buen cuerpo para estar en el escenario'. ¿Es esto acoso?",
     opts:["Sí, es acoso sexual verbal","No, es un cumplido","Solo si se repite muchas veces","Depende de si tenía intención"],
@@ -1342,9 +1444,9 @@ let cQ = 0, score = 0, answered = false;
 
 function startTest() {
   cQ = 0; score = 0; answered = false;
-  document.getElementById('test-home-inline').style.display = 'none';
-  document.getElementById('test-result-inline').style.display = 'none';
-  document.getElementById('test-questions-inline').style.display = 'block';
+  document.getElementById('test-home').style.display = 'none';
+  document.getElementById('test-result').style.display = 'none';
+  document.getElementById('test-questions').style.display = 'block';
   renderQ();
 }
 function renderQ() {
@@ -1384,8 +1486,8 @@ function nextQ() {
   renderQ();
 }
 function showResult() {
-  document.getElementById('test-questions-inline').style.display = 'none';
-  document.getElementById('test-result-inline').style.display = 'block';
+  document.getElementById('test-questions').style.display = 'none';
+  document.getElementById('test-result').style.display = 'block';
   document.getElementById('res-score').textContent = `${score}/${questions.length}`;
   let level, desc, tips;
   if (score >= 9) {
@@ -1409,8 +1511,16 @@ function showResult() {
   document.getElementById('res-desc').textContent = desc;
   document.getElementById('res-tips').innerHTML = '<ul>'+tips.map(t=>`<li>${t}</li>`).join('')+'</ul>';
 }
+function openTest() {
+  document.getElementById('test-overlay').classList.add('open');
+  document.getElementById('test-home').style.display='block';
+  document.getElementById('test-questions').style.display='none';
+  document.getElementById('test-result').style.display='none';
+  document.body.style.overflow='hidden';
+}
+function closeTest() { document.getElementById('test-overlay').classList.remove('open'); document.body.style.overflow=''; }
 
-/* ===== DECISIONES ===== */
+/* ===== GAME ===== */
 const gcons = {
   1:{a:{t:'good',tx:"✅ Buscar apoyo te protege. Las personas de confianza pueden acompañarte en el proceso de denuncia y ayudarte a valorar la situación con perspectiva."},b:{t:'bad',tx:"⚠️ Aceptar por miedo a las notas es exactamente lo que busca el acosador. El protocolo garantiza que tu situación académica no puede verse perjudicada por denunciar."},c:{t:'good',tx:"✅ Marcar límites claramente y guardar evidencias son dos pasos clave. Las capturas de pantalla son fundamentales si decides denunciar formalmente."},d:{t:'bad',tx:"⚠️ Ignorar la situación raramente la resuelve. El acoso tiende a escalar. Minimizar lo que sientes es una respuesta normal, pero no te protege."}},
   2:{a:{t:'neutral',tx:"💡 Puede funcionar, pero confrontar en público puede generar resistencia. Si el director/a no te respalda, tu posición se complica. Considera también la denuncia formal."},b:{t:'good',tx:"✅ La acción colectiva es muy efectiva y más difícil de ignorar. Con varias testimonios, la Comisión de Igualdad tomará la situación más en serio."},c:{t:'bad',tx:"⚠️ Abandonar el ensemble significa que el acoso 'gana'. Tienes tanto derecho a ese espacio como cualquier otra persona. Nunca deberías ser tú quien tenga que marcharse."},d:{t:'good',tx:"✅ Documentar los mensajes como evidencia es clave. El acoso ambiental digital deja rastro. Reportarlo formalmente obliga a la institución a actuar."}},
@@ -1419,8 +1529,8 @@ const gcons = {
 const tmap = {good:'cons-good', bad:'cons-bad', neutral:'cons-neutral'};
 
 function startScene(n) {
-  document.getElementById('game-home-inline').style.display='none';
-  document.getElementById('game-play-inline').style.display='block';
+  document.getElementById('game-home').style.display='none';
+  document.getElementById('game-play').style.display='block';
   document.querySelectorAll('.game-scene').forEach(s => s.classList.remove('active'));
   document.getElementById('scene-'+n).classList.add('active');
   document.getElementById('cons-'+n).className='consequence';
@@ -1436,9 +1546,20 @@ function choose(scene, ch) {
   document.querySelectorAll('#ch-'+scene+' .choice').forEach(b => { b.disabled=true; b.style.opacity='0.55'; });
 }
 function backToScenes() {
-  document.getElementById('game-play-inline').style.display='none';
-  document.getElementById('game-home-inline').style.display='block';
+  document.getElementById('game-play').style.display='none';
+  document.getElementById('game-home').style.display='block';
 }
+function openGame() {
+  document.getElementById('game-overlay').classList.add('open');
+  document.getElementById('game-home').style.display='block';
+  document.getElementById('game-play').style.display='none';
+  document.body.style.overflow='hidden';
+}
+function closeGame() { document.getElementById('game-overlay').classList.remove('open'); document.body.style.overflow=''; }
+
+document.getElementById('test-overlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeTest(); });
+document.getElementById('game-overlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeGame(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape'){closeTest();closeGame();} });
 </script>
 </body>
 </html>
