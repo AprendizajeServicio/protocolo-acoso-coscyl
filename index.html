@@ -993,10 +993,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <div class="sec-wrap">
 
   <div class="diagram-grid">
-    <div class="diagram-center">
-      <span style="font-size:1.6rem">⚠️</span>
-      <span>Formas de acoso sexual en el COSCYL</span>
-    </div>
     <div class="d-node dn-burg">
       <h4>🔄 Quid pro quo</h4>
       <p>Chantaje sexual: favores a cambio de beneficios académicos o laborales. Siempre implica abuso de autoridad.</p>
@@ -1205,20 +1201,23 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   </div>
 </div>
 </section>
-</main>
 
-<!-- ===== MODAL MINI-TEST ===== -->
-<div id="test-overlay" class="overlay" role="dialog" aria-modal="true" aria-label="Mini-test de señales de alerta">
-  <div class="modal">
-    <button class="modal-close" onclick="closeTest()" aria-label="Cerrar">✕</button>
-
+<!-- ===== SECCIÓN 5: MINI-TEST ===== -->
+<section id="section-test" class="section">
+<div class="section-chapter" style="background:linear-gradient(135deg,#1e6b8a 0%,#154f6b 100%)">
+  <div class="chapter-inner">
+    <span class="sec-tag">Actividad interactiva</span>
+    <h2>🧠 Mini-test: ¿Reconoces las señales?</h2>
+    <p class="sec-desc">10 preguntas sobre el acoso sexual en entornos musicales. Pon a prueba tu conocimiento y recibe feedback personalizado.</p>
+  </div>
+  <span class="chapter-num" aria-hidden="true">05</span>
+</div>
+<div class="sec-wrap">
+  <div style="max-width:700px;margin:0 auto">
     <div id="test-home">
-      <span class="sec-tag tag-burg" style="display:inline-block;margin-bottom:0.75rem">Mini-test interactivo</span>
-      <h2 style="font-family:'Playfair Display',serif">🧠 ¿Reconoces las señales de alerta?</h2>
-      <p style="margin:0.75rem 0 1.75rem">10 preguntas sobre el acoso sexual en entornos musicales. Al final recibirás un resultado con feedback personalizado.</p>
+      <p style="margin:0 0 1.75rem;color:var(--mid)">Pon a prueba tu conocimiento sobre el protocolo COSCYL y las señales de alerta. <strong>10 preguntas</strong>, feedback inmediato y resultado personalizado.</p>
       <button class="btn-primary" onclick="startTest()">Comenzar el test →</button>
     </div>
-
     <div id="test-questions" style="display:none">
       <div class="test-bar-wrap"><div class="test-bar" id="test-bar" style="width:10%"></div></div>
       <div class="test-qnum" id="test-qnum">Pregunta 1 de 10</div>
@@ -1229,7 +1228,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         <button class="btn-primary" id="test-next" onclick="nextQ()" style="display:none">Siguiente →</button>
       </div>
     </div>
-
     <div id="test-result" style="display:none">
       <div class="result-wrap">
         <div class="result-score" id="res-score"></div>
@@ -1238,101 +1236,107 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         <div class="result-tips" id="res-tips"></div>
         <div class="result-actions">
           <button class="btn-primary" onclick="startTest()">Repetir el test</button>
-          <button class="btn-outline" onclick="closeTest()">Cerrar</button>
+          <button class="btn-outline" onclick="openGame()">Ir a Decisiones →</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+</section>
 
-<!-- ===== MODAL GAME ===== -->
-<div id="game-overlay" class="overlay" role="dialog" aria-modal="true" aria-label="Juego de decisiones ramificadas">
-  <div class="modal">
-    <button class="modal-close" onclick="closeGame()" aria-label="Cerrar">✕</button>
+<!-- ===== SECCIÓN 6: DECISIONES ===== -->
+<section id="section-game" class="section">
+<div class="section-chapter" style="background:linear-gradient(135deg,#1e6b4a 0%,#155c3e 100%)">
+  <div class="chapter-inner">
+    <span class="sec-tag">Actividad interactiva</span>
+    <h2>🎯 Decisiones: ¿Qué harías en esta situación?</h2>
+    <p class="sec-desc">Tres escenarios reales del ámbito musical. Elige cómo actuarías y descubre las consecuencias de cada decisión.</p>
+  </div>
+  <span class="chapter-num" aria-hidden="true">06</span>
+</div>
+<div class="sec-wrap">
+  <div id="game-home">
+    <p style="margin:0 0 1.5rem;color:var(--mid)">Tres escenarios reales del ámbito musical. Elige cómo actuarías y descubre las consecuencias de cada decisión.</p>
+    <div class="scene-selector">
+      <button class="scene-card" onclick="startScene(1)">
+        <span class="scene-ico">📱</span>
+        Escenario 1
+        <span class="scene-sub">Mensajes del profesor</span>
+      </button>
+      <button class="scene-card" onclick="startScene(2)">
+        <span class="scene-ico">🎵</span>
+        Escenario 2
+        <span class="scene-sub">Ambiente en el ensemble</span>
+      </button>
+      <button class="scene-card" onclick="startScene(3)">
+        <span class="scene-ico">🎓</span>
+        Escenario 3
+        <span class="scene-sub">Presión sobre las notas</span>
+      </button>
+    </div>
+  </div>
 
-    <div id="game-home">
-      <span class="sec-tag tag-burg" style="display:inline-block;margin-bottom:0.75rem">Decisiones ramificadas</span>
-      <h2 style="font-family:'Playfair Display',serif">🎯 ¿Qué harías en esta situación?</h2>
-      <p style="margin:0.75rem 0 1.5rem">Tres escenarios reales del ámbito musical. Elige cómo actuarías y descubre las consecuencias de cada decisión.</p>
-      <div class="scene-selector">
-        <button class="scene-card" onclick="startScene(1)">
-          <span class="scene-ico">📱</span>
-          Escenario 1
-          <span class="scene-sub">Mensajes del profesor</span>
-        </button>
-        <button class="scene-card" onclick="startScene(2)">
-          <span class="scene-ico">🎵</span>
-          Escenario 2
-          <span class="scene-sub">Ambiente en el ensemble</span>
-        </button>
-        <button class="scene-card" onclick="startScene(3)">
-          <span class="scene-ico">🎓</span>
-          Escenario 3
-          <span class="scene-sub">Presión sobre las notas</span>
-        </button>
+  <div id="game-play" style="display:none">
+    <div id="scene-1" class="game-scene">
+      <span class="sec-tag tag-burg" style="display:inline-block;margin-bottom:0.5rem">Escenario 1</span>
+      <h3 style="font-family:'Playfair Display',serif;margin-bottom:0.25rem">📱 Mensajes fuera de hora</h3>
+      <div class="narrative">Llevas semanas recibiendo mensajes de WhatsApp de tu profesor de piano. Al principio eran sobre ejercicios, pero últimamente llegan a medianoche con comentarios sobre tu aspecto: <em>"Tienes una sonrisa preciosa para estar en el escenario"</em>. Hoy te ha mandado un audio preguntando si puedes quedar el sábado, "sin el grupo, para repasar de forma más personalizada".</div>
+      <p class="scene-q">¿Qué haces?</p>
+      <div class="choices" id="ch-1">
+        <button class="choice" onclick="choose(1,'a')">A) No contestas los mensajes personales y buscas apoyo en alguien de confianza para valorar la situación</button>
+        <button class="choice" onclick="choose(1,'b')">B) Aceptas la cita para no tener problemas con las notas</button>
+        <button class="choice" onclick="choose(1,'c')">C) Le dices claramente que esos mensajes te incomodan y guardas capturas por si acaso</button>
+        <button class="choice" onclick="choose(1,'d')">D) Lo ignoras pensando que "tampoco es para tanto"</button>
+      </div>
+      <div class="consequence" id="cons-1"></div>
+      <div class="reflection" id="ref-1" style="display:none">
+        <h4>💡 Para reflexionar</h4>
+        <p>Estos mensajes configuran acoso sexual ambiental y verbal. El profesor aprovecha su posición de autoridad (acoso vertical descendente). Guardar evidencias es clave. Acudir a la Comisión de Igualdad protege a la víctima. <strong>Aceptar la cita por miedo a las notas nunca es la solución.</strong></p>
+        <button class="btn-outline" onclick="backToScenes()" style="margin-top:1rem;font-size:0.85rem">← Volver a escenarios</button>
       </div>
     </div>
 
-    <div id="game-play" style="display:none">
-      <div id="scene-1" class="game-scene">
-        <span class="sec-tag tag-burg" style="display:inline-block;margin-bottom:0.5rem">Escenario 1</span>
-        <h3 style="font-family:'Playfair Display',serif;margin-bottom:0.25rem">📱 Mensajes fuera de hora</h3>
-        <div class="narrative">Llevas semanas recibiendo mensajes de WhatsApp de tu profesor de piano. Al principio eran sobre ejercicios, pero últimamente llegan a medianoche con comentarios sobre tu aspecto: <em>"Tienes una sonrisa preciosa para estar en el escenario"</em>. Hoy te ha mandado un audio preguntando si puedes quedar el sábado, "sin el grupo, para repasar de forma más personalizada".</div>
-        <p class="scene-q">¿Qué haces?</p>
-        <div class="choices" id="ch-1">
-          <button class="choice" onclick="choose(1,'a')">A) No contestas los mensajes personales y buscas apoyo en alguien de confianza para valorar la situación</button>
-          <button class="choice" onclick="choose(1,'b')">B) Aceptas la cita para no tener problemas con las notas</button>
-          <button class="choice" onclick="choose(1,'c')">C) Le dices claramente que esos mensajes te incomodan y guardas capturas por si acaso</button>
-          <button class="choice" onclick="choose(1,'d')">D) Lo ignoras pensando que "tampoco es para tanto"</button>
-        </div>
-        <div class="consequence" id="cons-1"></div>
-        <div class="reflection" id="ref-1" style="display:none">
-          <h4>💡 Para reflexionar</h4>
-          <p>Estos mensajes configuran acoso sexual ambiental y verbal. El profesor aprovecha su posición de autoridad (acoso vertical descendente). Guardar evidencias es clave. Acudir a la Comisión de Igualdad protege a la víctima. <strong>Aceptar la cita por miedo a las notas nunca es la solución.</strong></p>
-          <button class="btn-outline" onclick="backToScenes()" style="margin-top:1rem;font-size:0.85rem">← Volver a escenarios</button>
-        </div>
+    <div id="scene-2" class="game-scene">
+      <span class="sec-tag tag-purple" style="display:inline-block;margin-bottom:0.5rem">Escenario 2</span>
+      <h3 style="font-family:'Playfair Display',serif;margin-bottom:0.25rem">🎵 Ambiente tóxico en el ensemble</h3>
+      <div class="narrative">En tu grupo de música de cámara, un compañero hace constantemente chistes sexuales sobre los cuerpos de las compañeras y comparte memes de contenido sexual en el grupo de WhatsApp del ensemble. El director/a los ve y se ríe. Algunas compañeras están visiblemente incómodas pero no dicen nada. Tú también te sientes mal en cada ensayo.</div>
+      <p class="scene-q">¿Qué haces?</p>
+      <div class="choices" id="ch-2">
+        <button class="choice" onclick="choose(2,'a')">A) Pides al compañero que pare, en el momento, delante de todos</button>
+        <button class="choice" onclick="choose(2,'b')">B) Hablas con las personas afectadas para actuar juntos/as y lo denunciáis a la Comisión de Igualdad</button>
+        <button class="choice" onclick="choose(2,'c')">C) Abandonas el ensemble para evitar la situación</button>
+        <button class="choice" onclick="choose(2,'d')">D) Capturas los mensajes del grupo y los reportas como acoso sexual ambiental</button>
       </div>
-
-      <div id="scene-2" class="game-scene">
-        <span class="sec-tag tag-purple" style="display:inline-block;margin-bottom:0.5rem">Escenario 2</span>
-        <h3 style="font-family:'Playfair Display',serif;margin-bottom:0.25rem">🎵 Ambiente tóxico en el ensemble</h3>
-        <div class="narrative">En tu grupo de música de cámara, un compañero hace constantemente chistes sexuales sobre los cuerpos de las compañeras y comparte memes de contenido sexual en el grupo de WhatsApp del ensemble. El director/a los ve y se ríe. Algunas compañeras están visiblemente incómodas pero no dicen nada. Tú también te sientes mal en cada ensayo.</div>
-        <p class="scene-q">¿Qué haces?</p>
-        <div class="choices" id="ch-2">
-          <button class="choice" onclick="choose(2,'a')">A) Pides al compañero que pare, en el momento, delante de todos</button>
-          <button class="choice" onclick="choose(2,'b')">B) Hablas con las personas afectadas para actuar juntos/as y lo denunciáis a la Comisión de Igualdad</button>
-          <button class="choice" onclick="choose(2,'c')">C) Abandonas el ensemble para evitar la situación</button>
-          <button class="choice" onclick="choose(2,'d')">D) Capturas los mensajes del grupo y los reportas como acoso sexual ambiental</button>
-        </div>
-        <div class="consequence" id="cons-2"></div>
-        <div class="reflection" id="ref-2" style="display:none">
-          <h4>💡 Para reflexionar</h4>
-          <p>Este es un caso de acoso sexual ambiental y horizontal. El director/a que lo tolera también tiene responsabilidad. Actuar colectivamente es más efectivo y más difícil de ignorar. <strong>Nunca tenéis que abandonar un espacio que también es vuestro.</strong></p>
-          <button class="btn-outline" onclick="backToScenes()" style="margin-top:1rem;font-size:0.85rem">← Volver a escenarios</button>
-        </div>
+      <div class="consequence" id="cons-2"></div>
+      <div class="reflection" id="ref-2" style="display:none">
+        <h4>💡 Para reflexionar</h4>
+        <p>Este es un caso de acoso sexual ambiental y horizontal. El director/a que lo tolera también tiene responsabilidad. Actuar colectivamente es más efectivo y más difícil de ignorar. <strong>Nunca tenéis que abandonar un espacio que también es vuestro.</strong></p>
+        <button class="btn-outline" onclick="backToScenes()" style="margin-top:1rem;font-size:0.85rem">← Volver a escenarios</button>
       </div>
+    </div>
 
-      <div id="scene-3" class="game-scene">
-        <span class="sec-tag tag-burg" style="display:inline-block;margin-bottom:0.5rem">Escenario 3</span>
-        <h3 style="font-family:'Playfair Display',serif;margin-bottom:0.25rem">🎓 Presión sobre las calificaciones</h3>
-        <div class="narrative">Tu tutora del TFM te ha dicho que tu trabajo "tiene lagunas importantes" y que probablemente suspenderías. Pero en la misma reunión ha añadido: <em>"Si me acompañas a cenar el jueves, podemos hablar de cómo mejorar tu nota antes del tribunal. Solo entre nosotros/as"</em>. Necesitas aprobar para terminar la carrera este año.</div>
-        <p class="scene-q">¿Qué haces?</p>
-        <div class="choices" id="ch-3">
-          <button class="choice" onclick="choose(3,'a')">A) Aceptas la cena pensando que así salvas el TFM</button>
-          <button class="choice" onclick="choose(3,'b')">B) Exiges que cualquier feedback sea por escrito o en reunión oficial, y denuncias lo ocurrido de inmediato</button>
-          <button class="choice" onclick="choose(3,'c')">C) Cambias de tutor/a sin denunciar para no tener problemas</button>
-          <button class="choice" onclick="choose(3,'d')">D) Buscas al Equipo Directivo para contarles lo ocurrido ese mismo día</button>
-        </div>
-        <div class="consequence" id="cons-3"></div>
-        <div class="reflection" id="ref-3" style="display:none">
-          <h4>💡 Para reflexionar</h4>
-          <p>Esto es acoso sexual <em>quid pro quo</em>: tu calificación a cambio de someterte a los requerimientos de tu tutora. <strong>Es un delito.</strong> Denunciarlo protege tu nota (no puede verse perjudicada por la denuncia) y protege a otras personas de la misma institución.</p>
-          <button class="btn-outline" onclick="backToScenes()" style="margin-top:1rem;font-size:0.85rem">← Volver a escenarios</button>
-        </div>
+    <div id="scene-3" class="game-scene">
+      <span class="sec-tag tag-burg" style="display:inline-block;margin-bottom:0.5rem">Escenario 3</span>
+      <h3 style="font-family:'Playfair Display',serif;margin-bottom:0.25rem">🎓 Presión sobre las calificaciones</h3>
+      <div class="narrative">Tu tutora del TFM te ha dicho que tu trabajo "tiene lagunas importantes" y que probablemente suspenderías. Pero en la misma reunión ha añadido: <em>"Si me acompañas a cenar el jueves, podemos hablar de cómo mejorar tu nota antes del tribunal. Solo entre nosotros/as"</em>. Necesitas aprobar para terminar la carrera este año.</div>
+      <p class="scene-q">¿Qué haces?</p>
+      <div class="choices" id="ch-3">
+        <button class="choice" onclick="choose(3,'a')">A) Aceptas la cena pensando que así salvas el TFM</button>
+        <button class="choice" onclick="choose(3,'b')">B) Exiges que cualquier feedback sea por escrito o en reunión oficial, y denuncias lo ocurrido de inmediato</button>
+        <button class="choice" onclick="choose(3,'c')">C) Cambias de tutor/a sin denunciar para no tener problemas</button>
+        <button class="choice" onclick="choose(3,'d')">D) Buscas al Equipo Directivo para contarles lo ocurrido ese mismo día</button>
+      </div>
+      <div class="consequence" id="cons-3"></div>
+      <div class="reflection" id="ref-3" style="display:none">
+        <h4>💡 Para reflexionar</h4>
+        <p>Esto es acoso sexual <em>quid pro quo</em>: tu calificación a cambio de someterte a los requerimientos de tu tutora. <strong>Es un delito.</strong> Denunciarlo protege tu nota (no puede verse perjudicada por la denuncia) y protege a otras personas de la misma institución.</p>
+        <button class="btn-outline" onclick="backToScenes()" style="margin-top:1rem;font-size:0.85rem">← Volver a escenarios</button>
       </div>
     </div>
   </div>
 </div>
+</section>
+</main>
 
 <script>
 /* ===== NAV ===== */
@@ -1512,13 +1516,11 @@ function showResult() {
   document.getElementById('res-tips').innerHTML = '<ul>'+tips.map(t=>`<li>${t}</li>`).join('')+'</ul>';
 }
 function openTest() {
-  document.getElementById('test-overlay').classList.add('open');
   document.getElementById('test-home').style.display='block';
   document.getElementById('test-questions').style.display='none';
   document.getElementById('test-result').style.display='none';
-  document.body.style.overflow='hidden';
+  document.getElementById('section-test').scrollIntoView({ behavior: 'smooth' });
 }
-function closeTest() { document.getElementById('test-overlay').classList.remove('open'); document.body.style.overflow=''; }
 
 /* ===== GAME ===== */
 const gcons = {
@@ -1550,16 +1552,10 @@ function backToScenes() {
   document.getElementById('game-home').style.display='block';
 }
 function openGame() {
-  document.getElementById('game-overlay').classList.add('open');
   document.getElementById('game-home').style.display='block';
   document.getElementById('game-play').style.display='none';
-  document.body.style.overflow='hidden';
+  document.getElementById('section-game').scrollIntoView({ behavior: 'smooth' });
 }
-function closeGame() { document.getElementById('game-overlay').classList.remove('open'); document.body.style.overflow=''; }
-
-document.getElementById('test-overlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeTest(); });
-document.getElementById('game-overlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeGame(); });
-document.addEventListener('keydown', e => { if(e.key==='Escape'){closeTest();closeGame();} });
 </script>
 </body>
 </html>
