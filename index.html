@@ -11,11 +11,11 @@
 /* ===== RESET & TOKENS ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --burg:      #7B1E3A;
-  --burg-d:    #5A1629;
-  --burg-l:    #9B3456;
-  --burg-bg:   rgba(123,30,58,0.07);
-  --burg-brd:  rgba(123,30,58,0.18);
+  --burg:      #AC3740;
+  --burg-d:    #8B2B33;
+  --burg-l:    #C4505A;
+  --burg-bg:   rgba(172,55,64,0.07);
+  --burg-brd:  rgba(172,55,64,0.2);
   --purple:    #6B4C7A;
   --purple-bg: rgba(107,76,122,0.08);
   --cream:     #FAF8F5;
@@ -25,9 +25,9 @@
   --mid:       #5C5752;
   --muted:     #8C877F;
   --border:    rgba(45,42,38,0.1);
-  --shadow-sm: 0 2px 8px rgba(123,30,58,0.08);
-  --shadow:    0 6px 24px rgba(123,30,58,0.13);
-  --shadow-lg: 0 12px 40px rgba(123,30,58,0.18);
+  --shadow-sm: 0 2px 8px rgba(172,55,64,0.08);
+  --shadow:    0 6px 24px rgba(172,55,64,0.13);
+  --shadow-lg: 0 12px 40px rgba(172,55,64,0.18);
   --r:         16px;
   --r-sm:      10px;
 }
@@ -82,12 +82,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   background: var(--burg);
   color: #fff; letter-spacing: 0.02em;
   transition: all 0.22s ease;
-  box-shadow: 0 2px 8px rgba(123,30,58,0.25);
+  box-shadow: 0 2px 8px rgba(172,55,64,0.25);
 }
 .btn-special:hover {
   background: var(--burg-d);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(123,30,58,0.35);
+  box-shadow: 0 5px 15px rgba(172,55,64,0.35);
 }
 /* 4 main tab buttons */
 .nav-tabs {
@@ -122,7 +122,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(123,30,58,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 20% 50%, rgba(172,55,64,0.08) 0%, transparent 55%),
     radial-gradient(ellipse at 80% 30%, rgba(107,76,122,0.07) 0%, transparent 55%),
     var(--cream);
 }
@@ -309,7 +309,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   margin: 1.25rem 0;
 }
 .alert-warn {
-  background: rgba(123,30,58,0.05);
+  background: rgba(172,55,64,0.05);
   border: 1px solid var(--burg-brd);
 }
 .alert-info {
