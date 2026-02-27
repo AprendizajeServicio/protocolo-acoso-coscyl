@@ -117,7 +117,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* ===== HERO ===== */
 #hero {
-  padding: 9rem 2rem 5rem;
+  padding: 5rem 2rem 4rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -202,12 +207,27 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .hero-stat .lbl { font-size: 0.77rem; color: var(--muted); font-weight: 500; }
 
 /* ===== CONTENT SECTIONS ===== */
-.section { display: block; scroll-margin-top: 92px; }
+.section {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  scroll-margin-top: 92px;
+}
 @keyframes fadeUp {
   from { opacity:0; transform: translateY(18px); }
   to   { opacity:1; transform: translateY(0); }
 }
-.sec-wrap { max-width: 1060px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+.sec-wrap {
+  width: 100%;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 4rem 2rem 5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
 .sec-head { margin-bottom: 2.5rem; }
 .sec-tag {
   display: inline-block;
@@ -714,8 +734,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <div class="section-chapter">
   <div class="chapter-inner">
     <span class="sec-tag">Sección 1</span>
-    <h2>Introducción y marco legal</h2>
-    <p class="sec-desc">El compromiso del COSCYL, tus derechos fundamentales y las bases legales que protegen a toda la comunidad educativa.</p>
+    <h2>Introducción</h2>
+    <p class="sec-desc">El compromiso del COSCYL con la dignidad de toda la comunidad educativa: derechos, principios y definición del acoso sexual.</p>
   </div>
   <span class="chapter-num" aria-hidden="true">01</span>
 </div>
@@ -777,64 +797,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
   </div>
 
-  <div class="divider"></div>
-  <h2>Marco normativo</h2>
-  <p style="margin-top:0.4rem">Las leyes que respaldan este protocolo, explicadas de forma clara:</p>
-
-  <div class="accordion">
-    <div class="acc-item">
-      <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>⚖️ Ley Orgánica 3/2007 — Igualdad efectiva entre mujeres y hombres</span>
-        <span class="acc-arr">▾</span>
-      </button>
-      <div class="acc-body">
-        <p>La ley más importante en materia de igualdad en España. Obliga a todas las instituciones a prevenir el acoso sexual y a establecer protocolos de actuación. La base de todo este documento.</p>
-      </div>
-    </div>
-    <div class="acc-item">
-      <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>🎓 Ley Orgánica 2/2023 — Sistema Universitario (LOSU)</span>
-        <span class="acc-arr">▾</span>
-      </button>
-      <div class="acc-body">
-        <p>Regula el sistema universitario español. Obliga a los centros de educación superior a garantizar entornos seguros y libres de violencia para el alumnado y el personal.</p>
-      </div>
-    </div>
-    <div class="acc-item">
-      <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>🛡️ Ley 31/1995 — Prevención de Riesgos Laborales</span>
-        <span class="acc-arr">▾</span>
-      </button>
-      <div class="acc-body">
-        <p>El acoso sexual es un riesgo laboral reconocido. Las instituciones tienen obligación legal de proteger la salud física y psíquica de todas las personas en su entorno de trabajo y estudio.</p>
-      </div>
-    </div>
-    <div class="acc-item">
-      <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>🔐 RGPD y Ley Orgánica 3/2018 — Protección de datos</span>
-        <span class="acc-arr">▾</span>
-      </button>
-      <div class="acc-body">
-        <p>Toda información relacionada con una denuncia de acoso está protegida por las leyes de protección de datos. Tu privacidad es un derecho fundamental durante todo el proceso.</p>
-      </div>
-    </div>
-    <div class="acc-item">
-      <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>🌍 Ley 1/2003 — Igualdad de oportunidades en Castilla y León</span>
-        <span class="acc-arr">▾</span>
-      </button>
-      <div class="acc-body">
-        <p>Ley autonómica que refuerza la igualdad de oportunidades en CyL, directamente aplicable al COSCYL como institución de la Junta de Castilla y León.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="alert alert-warn" style="margin-top:2rem">
-    <span class="alert-icon">🚨</span>
-    <div>
-      <p><strong>¿Estás en peligro inmediato?</strong> Llama al <strong>016</strong> (violencia de género, gratuito y confidencial) o al <strong>112</strong> (emergencias). Ambas líneas no aparecen en la factura del teléfono.</p>
-    </div>
-  </div>
 </div>
 </section>
 
@@ -1332,6 +1294,74 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         <p>Esto es acoso sexual <em>quid pro quo</em>: tu calificación a cambio de someterte a los requerimientos de tu tutora. <strong>Es un delito.</strong> Denunciarlo protege tu nota (no puede verse perjudicada por la denuncia) y protege a otras personas de la misma institución.</p>
         <button class="btn-outline" onclick="backToScenes()" style="margin-top:1rem;font-size:0.85rem">← Volver a escenarios</button>
       </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECCIÓN 7: MARCO NORMATIVO -->
+<section id="section-marco" class="section">
+<div class="section-chapter" style="background:linear-gradient(135deg,#3b3270 0%,#251e4a 100%)">
+  <div class="chapter-inner">
+    <span class="sec-tag">Sección 7</span>
+    <h2>Marco normativo</h2>
+    <p class="sec-desc">Las leyes que respaldan este protocolo, explicadas de forma clara. Tu protección está respaldada por la ley.</p>
+  </div>
+  <span class="chapter-num" aria-hidden="true">07</span>
+</div>
+<div class="sec-wrap">
+  <div class="accordion">
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>⚖️ Ley Orgánica 3/2007 — Igualdad efectiva entre mujeres y hombres</span>
+        <span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>La ley más importante en materia de igualdad en España. Obliga a todas las instituciones a prevenir el acoso sexual y a establecer protocolos de actuación. La base de todo este documento.</p>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>🎓 Ley Orgánica 2/2023 — Sistema Universitario (LOSU)</span>
+        <span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>Regula el sistema universitario español. Obliga a los centros de educación superior a garantizar entornos seguros y libres de violencia para el alumnado y el personal.</p>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>🛡️ Ley 31/1995 — Prevención de Riesgos Laborales</span>
+        <span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>El acoso sexual es un riesgo laboral reconocido. Las instituciones tienen obligación legal de proteger la salud física y psíquica de todas las personas en su entorno de trabajo y estudio.</p>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>🔐 RGPD y Ley Orgánica 3/2018 — Protección de datos</span>
+        <span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>Toda información relacionada con una denuncia de acoso está protegida por las leyes de protección de datos. Tu privacidad es un derecho fundamental durante todo el proceso.</p>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-hd" onclick="toggleAcc(this)">
+        <span>🌍 Ley 1/2003 — Igualdad de oportunidades en Castilla y León</span>
+        <span class="acc-arr">▾</span>
+      </button>
+      <div class="acc-body">
+        <p>Ley autonómica que refuerza la igualdad de oportunidades en CyL, directamente aplicable al COSCYL como institución de la Junta de Castilla y León.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-warn" style="margin-top:2rem">
+    <span class="alert-icon">🚨</span>
+    <div>
+      <p><strong>¿Estás en peligro inmediato?</strong> Llama al <strong>016</strong> (violencia de género, gratuito y confidencial) o al <strong>112</strong> (emergencias). Ambas líneas no aparecen en la factura del teléfono.</p>
     </div>
   </div>
 </div>
