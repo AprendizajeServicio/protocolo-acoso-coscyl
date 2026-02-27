@@ -86,30 +86,34 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: var(--burg);
   transform: none; box-shadow: none;
 }
-/* 4 main tab buttons */
+/* 4 main tab buttons — overlaid on hero image */
 .nav-tabs {
-  max-width: 860px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(4,1fr);
-  border-top: 1px solid var(--border);
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid rgba(255,255,255,0.18);
 }
 .nav-tab {
-  display: flex; flex-direction: column; align-items: center; gap: 0.22rem;
-  padding: 0.6rem 0.5rem 0.55rem;
-  font-size: 0.72rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.07em;
-  color: var(--muted);
-  border-bottom: 3px solid transparent;
+  flex: 1; max-width: 220px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.4rem 1rem;
+  font-size: 0.75rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.13em;
+  color: rgba(255,255,255,0.65);
+  border-top: 2px solid transparent;
   transition: all 0.22s ease;
   position: relative;
+  background: none;
 }
-.nav-tab .ti { font-size: 1.25rem; display: block; transition: transform 0.2s ease; }
-.nav-tab:hover { color: var(--burg); background: var(--burg-bg); }
-.nav-tab:hover .ti { transform: translateY(-2px); }
+.nav-tab .ti { display: none; }
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.08); }
 .nav-tab.active {
-  color: var(--burg);
-  border-bottom-color: var(--burg);
-  background: var(--burg-bg);
-  font-weight: 700;
+  color: #fff;
+  border-top-color: rgba(255,255,255,0.75);
+  background: rgba(255,255,255,0.08);
+  font-weight: 600;
 }
 
 /* ===== HERO ===== */
@@ -122,7 +126,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   text-align: center;
   position: relative;
   overflow: hidden;
-  padding: 8rem 2rem 5rem;
+  padding: 8rem 2rem 9rem;
   box-sizing: border-box;
 }
 .hero-bg {
@@ -691,7 +695,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
-  #hero { padding: 6rem 1.5rem 4rem; }
+  #hero { padding: 6rem 1.5rem 8rem; }
+  .nav-tab { padding: 1.1rem 0.5rem; font-size: 0.68rem; letter-spacing: 0.08em; }
   .hero-sub { max-width: 100%; }
   .hero-stats { max-width: 100%; }
 }
@@ -730,20 +735,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <button class="btn-special" onclick="openGame()">Decisiones</button>
     </div>
   </div>
-  <nav class="nav-tabs" role="tablist" aria-label="Secciones principales">
-    <button class="nav-tab active" onclick="showSection('intro')" data-section="intro" role="tab" aria-selected="true">
-      <span class="ti">📋</span><span>Introducción</span>
-    </button>
-    <button class="nav-tab" onclick="showSection('conductas')" data-section="conductas" role="tab" aria-selected="false">
-      <span class="ti">⚠️</span><span>Conductas</span>
-    </button>
-    <button class="nav-tab" onclick="showSection('tipos')" data-section="tipos" role="tab" aria-selected="false">
-      <span class="ti">🔍</span><span>Tipos</span>
-    </button>
-    <button class="nav-tab" onclick="showSection('medidas')" data-section="medidas" role="tab" aria-selected="false">
-      <span class="ti">🛡️</span><span>Medidas</span>
-    </button>
-  </nav>
 </nav>
 
 <!-- ===== HERO ===== -->
@@ -791,6 +782,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <span class="lbl">Vigencia del protocolo</span>
     </div>
   </div>
+  <nav class="nav-tabs" role="tablist" aria-label="Secciones principales">
+    <button class="nav-tab active" onclick="showSection('intro')" data-section="intro" role="tab" aria-selected="true">Introducción</button>
+    <button class="nav-tab" onclick="showSection('conductas')" data-section="conductas" role="tab" aria-selected="false">Conductas</button>
+    <button class="nav-tab" onclick="showSection('tipos')" data-section="tipos" role="tab" aria-selected="false">Tipos</button>
+    <button class="nav-tab" onclick="showSection('medidas')" data-section="medidas" role="tab" aria-selected="false">Medidas</button>
+  </nav>
 </header>
 
 <!-- ===== MAIN ===== -->
