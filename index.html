@@ -56,6 +56,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ===== NAVIGATION ===== */
 #main-nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom: none;
+  transition: background 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease;
+}
+#main-nav.scrolled {
   background: rgba(254,253,251,0.96);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
@@ -69,51 +75,59 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .nav-logo {
   font-family: 'Playfair Display', serif;
   font-size: 0.95rem; font-weight: 700;
-  color: var(--burg);
+  color: rgba(255,255,255,0.9);
   white-space: nowrap; flex-shrink: 0;
   letter-spacing: 0.01em;
+  transition: color 0.35s ease;
 }
-.nav-logo span { color: var(--dark); font-weight: 400; font-style: italic; }
+.nav-logo span { color: rgba(255,255,255,0.65); font-weight: 400; font-style: italic; transition: color 0.35s ease; }
+#main-nav.scrolled .nav-logo { color: var(--burg); }
+#main-nav.scrolled .nav-logo span { color: var(--dark); }
 .nav-specials { display: flex; gap: 1.5rem; flex-shrink: 0; align-items: center; }
 .btn-special {
   font-size: 0.82rem; font-weight: 500;
-  color: var(--mid);
+  color: rgba(255,255,255,0.75);
   letter-spacing: 0.02em;
   transition: color 0.2s ease;
   background: none; box-shadow: none; padding: 0; border-radius: 0;
 }
-.btn-special:hover {
-  color: var(--burg);
-  transform: none; box-shadow: none;
-}
-/* 4 main tab buttons — overlaid on hero image */
+.btn-special:hover { color: #fff; transform: none; box-shadow: none; }
+#main-nav.scrolled .btn-special { color: var(--mid); }
+#main-nav.scrolled .btn-special:hover { color: var(--burg); }
+/* 4 main tab buttons */
 .nav-tabs {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  z-index: 3;
   display: flex;
   justify-content: center;
   border-top: 1px solid rgba(255,255,255,0.18);
+  transition: border-color 0.35s ease;
 }
+#main-nav.scrolled .nav-tabs { border-top-color: var(--border); }
 .nav-tab {
   flex: 1; max-width: 220px;
   display: flex; align-items: center; justify-content: center;
-  padding: 1.4rem 1rem;
+  padding: 1.1rem 1rem;
   font-size: 0.75rem; font-weight: 500;
   text-transform: uppercase; letter-spacing: 0.13em;
   color: rgba(255,255,255,0.65);
-  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
   transition: all 0.22s ease;
-  position: relative;
   background: none;
 }
 .nav-tab .ti { display: none; }
 .nav-tab:hover { color: #fff; background: rgba(255,255,255,0.08); }
 .nav-tab.active {
   color: #fff;
-  border-top-color: rgba(255,255,255,0.75);
+  border-bottom-color: rgba(255,255,255,0.75);
   background: rgba(255,255,255,0.08);
   font-weight: 600;
+}
+#main-nav.scrolled .nav-tab { color: var(--muted); }
+#main-nav.scrolled .nav-tab:hover { color: var(--burg); background: var(--burg-bg); }
+#main-nav.scrolled .nav-tab.active {
+  color: var(--burg);
+  border-bottom-color: var(--burg);
+  background: var(--burg-bg);
+  font-weight: 700;
 }
 
 /* ===== HERO ===== */
@@ -126,7 +140,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   text-align: center;
   position: relative;
   overflow: hidden;
-  padding: 8rem 2rem 9rem;
+  padding: 8rem 2rem 5rem;
   box-sizing: border-box;
 }
 .hero-bg {
@@ -735,6 +749,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <button class="btn-special" onclick="openGame()">Decisiones</button>
     </div>
   </div>
+  <nav class="nav-tabs" role="tablist" aria-label="Secciones principales">
+    <button class="nav-tab active" onclick="showSection('intro')" data-section="intro" role="tab" aria-selected="true">Introducción</button>
+    <button class="nav-tab" onclick="showSection('conductas')" data-section="conductas" role="tab" aria-selected="false">Conductas</button>
+    <button class="nav-tab" onclick="showSection('tipos')" data-section="tipos" role="tab" aria-selected="false">Tipos</button>
+    <button class="nav-tab" onclick="showSection('medidas')" data-section="medidas" role="tab" aria-selected="false">Medidas</button>
+  </nav>
 </nav>
 
 <!-- ===== HERO ===== -->
@@ -782,12 +802,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <span class="lbl">Vigencia del protocolo</span>
     </div>
   </div>
-  <nav class="nav-tabs" role="tablist" aria-label="Secciones principales">
-    <button class="nav-tab active" onclick="showSection('intro')" data-section="intro" role="tab" aria-selected="true">Introducción</button>
-    <button class="nav-tab" onclick="showSection('conductas')" data-section="conductas" role="tab" aria-selected="false">Conductas</button>
-    <button class="nav-tab" onclick="showSection('tipos')" data-section="tipos" role="tab" aria-selected="false">Tipos</button>
-    <button class="nav-tab" onclick="showSection('medidas')" data-section="medidas" role="tab" aria-selected="false">Medidas</button>
-  </nav>
 </header>
 
 <!-- ===== MAIN ===== -->
@@ -1487,12 +1501,16 @@ const _sectionObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.18, rootMargin: '-88px 0px -52% 0px' });
 document.querySelectorAll('.section').forEach(s => _sectionObserver.observe(s));
 
-// Barra de progreso de scroll
-window.addEventListener('scroll', () => {
+// Barra de progreso de scroll + nav transparente/sólida
+const _mainNav = document.getElementById('main-nav');
+function _updateNavScroll() {
   const doc = document.documentElement;
   const scrolled = doc.scrollTop / (doc.scrollHeight - doc.clientHeight);
   document.getElementById('scroll-bar').style.width = (scrolled * 100) + '%';
-}, { passive: true });
+  _mainNav.classList.toggle('scrolled', doc.scrollTop > 80);
+}
+window.addEventListener('scroll', _updateNavScroll, { passive: true });
+_updateNavScroll();
 
 /* ===== ACCORDION ===== */
 function toggleAcc(btn) {
