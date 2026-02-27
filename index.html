@@ -118,44 +118,33 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ===== HERO ===== */
 #hero {
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: 55fr 45fr;
-  align-items: stretch;
-  position: relative;
-  overflow: hidden;
-  background: var(--cream);
-}
-.hero-content {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  padding: 8rem 4rem 5rem 3rem;
-  position: relative;
-  z-index: 2;
-}
-.hero-visual {
+  text-align: center;
   position: relative;
   overflow: hidden;
-  min-height: 100vh;
+  padding: 8rem 2rem 5rem;
+  box-sizing: border-box;
 }
-.hero-visual img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
 }
-.hero-visual::after {
-  content: ''; position: absolute; inset: 0; pointer-events: none;
-  background:
-    linear-gradient(to right, var(--cream) 0%, transparent 12%),
-    linear-gradient(160deg, rgba(172,55,64,0.15) 0%, rgba(107,76,122,0.25) 100%);
+.hero-bg img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.hero-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(160deg, rgba(30,10,15,0.72) 0%, rgba(107,76,122,0.65) 100%);
 }
 .hero-deco {
-  position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 1;
 }
 .hero-deco span {
-  position: absolute; font-size: 1.4rem; opacity: 0.08;
+  position: absolute; font-size: 1.4rem; opacity: 0.15;
   animation: noteFloat 10s ease-in-out infinite;
-  color: var(--burg);
+  color: #fff;
 }
 @keyframes noteFloat {
   0%,100% { transform: translateY(0) rotate(-8deg); }
@@ -165,23 +154,25 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: inline-flex; align-items: center; gap: 0.4rem;
   padding: 0.35rem 1rem;
   border-radius: 50px;
-  background: var(--burg-bg);
-  border: 1px solid var(--burg-brd);
-  font-size: 0.78rem; font-weight: 600; color: var(--burg);
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.9);
   margin-bottom: 1.5rem;
   letter-spacing: 0.03em;
+  position: relative; z-index: 2;
 }
-.hero-title { margin-bottom: 0.75rem; }
+.hero-title { margin-bottom: 0.75rem; position: relative; z-index: 2; color: #fff; }
 .hero-title em {
-  font-style: italic; color: var(--burg);
+  font-style: italic; color: rgba(255,200,200,0.95);
   display: block;
 }
 .hero-sub {
-  font-size: 1.15rem; color: var(--mid);
-  max-width: 480px; margin: 0 0 2.5rem;
+  font-size: 1.15rem; color: rgba(255,255,255,0.85);
+  max-width: 560px; margin: 0 auto 2.5rem;
   line-height: 1.7;
+  position: relative; z-index: 2;
 }
-.hero-actions { display: flex; gap: 1rem; justify-content: flex-start; flex-wrap: wrap; }
+.hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 2; }
 .btn-primary {
   padding: 0.85rem 2.2rem;
   border-radius: 50px;
@@ -199,31 +190,32 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .btn-outline {
   padding: 0.85rem 2.2rem;
   border-radius: 50px;
-  border: 2px solid var(--burg);
-  color: var(--burg); font-weight: 700; font-size: 0.95rem;
+  border: 2px solid rgba(255,255,255,0.7);
+  color: #fff; font-weight: 700; font-size: 0.95rem;
   transition: all 0.22s ease;
 }
 .btn-outline:hover {
-  background: var(--burg); color: #fff;
+  background: rgba(255,255,255,0.15); color: #fff;
   transform: translateY(-3px);
   box-shadow: var(--shadow-sm);
 }
 .hero-stats {
   display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 1rem; max-width: 480px; margin: 3rem 0 0;
+  gap: 1rem; max-width: 560px; margin: 3rem auto 0;
+  position: relative; z-index: 2;
 }
 .hero-stat {
   padding: 1.2rem;
-  background: var(--white);
-  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
   border-radius: var(--r);
-  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(8px);
 }
 .hero-stat .num {
   font-family: 'Playfair Display', serif;
-  font-size: 1.7rem; font-weight: 700; color: var(--burg); display: block;
+  font-size: 1.7rem; font-weight: 700; color: #fff; display: block;
 }
-.hero-stat .lbl { font-size: 0.77rem; color: var(--muted); font-weight: 500; }
+.hero-stat .lbl { font-size: 0.77rem; color: rgba(255,255,255,0.75); font-weight: 500; }
 
 /* ===== CONTENT SECTIONS ===== */
 .section {
@@ -702,10 +694,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
-  #hero { grid-template-columns: 1fr; }
-  .hero-visual { min-height: 55vw; height: 55vw; order: -1; }
-  .hero-visual::after { background: linear-gradient(to bottom, transparent 70%, var(--cream) 100%); }
-  .hero-content { padding: 2.5rem 1.5rem 3.5rem; }
+  #hero { padding: 6rem 1.5rem 4rem; }
   .hero-sub { max-width: 100%; }
   .hero-stats { max-width: 100%; }
 }
@@ -761,6 +750,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 <!-- ===== HERO ===== -->
 <header id="hero">
+  <div class="hero-bg">
+    <img
+      src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=1800&h=1200&fit=crop&q=85"
+      alt="Orquesta en el conservatorio"
+      loading="eager">
+  </div>
   <div class="hero-deco" aria-hidden="true">
     <span style="top:12%;left:4%;animation-delay:0s">♩</span>
     <span style="top:65%;left:3%;animation-delay:2.1s">♫</span>
@@ -768,25 +763,24 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     <span style="top:30%;left:48%;animation-delay:2.5s">♪</span>
     <span style="top:50%;left:8%;animation-delay:1.3s">🎵</span>
   </div>
-  <div class="hero-content">
-    <div class="hero-pill">🎓 Conservatorio Superior de Música de Castilla y León · Protocolo 2025–2029</div>
-    <h1 class="hero-title">
-      Tu música merece<br>
-      <em>un entorno seguro</em>
-    </h1>
-    <p class="hero-sub">
-      Conoce tus derechos, identifica las señales de alerta y actúa.
-      Este espacio es tuyo: claro, confidencial y sin juicios.
-    </p>
-    <div class="hero-actions">
-      <button class="btn-primary" onclick="showSection('intro');document.getElementById('main-content').scrollIntoView({behavior:'smooth'})">
-        Explorar el protocolo
-      </button>
-      <button class="btn-outline" onclick="openTest()">
-        ¿Reconoces las señales?
-      </button>
-    </div>
-    <div class="hero-stats">
+  <div class="hero-pill">🎓 Conservatorio Superior de Música de Castilla y León · Protocolo 2025–2029</div>
+  <h1 class="hero-title">
+    Tu música merece<br>
+    <em>un entorno seguro</em>
+  </h1>
+  <p class="hero-sub">
+    Conoce tus derechos, identifica las señales de alerta y actúa.
+    Este espacio es tuyo: claro, confidencial y sin juicios.
+  </p>
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="showSection('intro');document.getElementById('main-content').scrollIntoView({behavior:'smooth'})">
+      Explorar el protocolo
+    </button>
+    <button class="btn-outline" onclick="openTest()">
+      ¿Reconoces las señales?
+    </button>
+  </div>
+  <div class="hero-stats">
     <div class="hero-stat">
       <span class="num">0</span>
       <span class="lbl">Tolerancia ante el acoso</span>
@@ -799,13 +793,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <span class="num">2025–29</span>
       <span class="lbl">Vigencia del protocolo</span>
     </div>
-  </div>
-  </div><!-- /hero-content -->
-  <div class="hero-visual">
-    <img
-      src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=900&h=1200&fit=crop&q=85"
-      alt="Orquesta en el conservatorio"
-      loading="eager">
   </div>
 </header>
 
