@@ -633,6 +633,54 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transition: width 0.1s ease;
 }
 
+/* ===== LOGOS FOOTER ===== */
+.logos-footer {
+  background: var(--dark);
+  padding: 3rem 2rem;
+  text-align: center;
+}
+.logos-footer-label {
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 0.4rem;
+}
+.logos-footer-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 2rem;
+}
+.partners-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.partner-logo {
+  background: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.partner-logo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+.partner-logo img {
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 720px) {
   .nav-top  { padding: 0.55rem 1rem 0.4rem; }
@@ -1367,6 +1415,26 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 </div>
 </section>
 </main>
+
+<!-- ===== FOOTER LOGOS ===== -->
+<footer class="logos-footer">
+  <p class="logos-footer-label">Coordinación institucional</p>
+  <p class="logos-footer-title">Comité Tripartito</p>
+  <div class="partners-logos">
+    <div class="partner-logo">
+      <img src="https://aprendizajeservicio.github.io/interpretacionmusical/LOGOS/Logo-USAL.jpg" alt="Universidad de Salamanca">
+    </div>
+    <div class="partner-logo">
+      <img src="https://aprendizajeservicio.github.io/interpretacionmusical/LOGOS/Logo_ADAVAS.png" alt="ADAVAS Salamanca">
+    </div>
+    <div class="partner-logo">
+      <img src="https://aprendizajeservicio.github.io/interpretacionmusical/LOGOS/Logo%20COSCYL.jpeg" alt="Conservatorio Superior de Música de Castilla y León">
+    </div>
+    <div class="partner-logo">
+      <img src="https://aprendizajeservicio.github.io/interpretacionmusical/LOGOS/APRENDIZAJE-150x150.png" alt="Aprendizaje y Servicio">
+    </div>
+  </div>
+</footer>
 
 <script>
 /* ===== NAV ===== */
