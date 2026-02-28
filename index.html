@@ -105,17 +105,15 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 #main-nav.scrolled .nav-tabs { border-top-color: var(--border); }
 .nav-tab {
   flex: 1; max-width: 220px;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 0.3rem;
+  display: flex; align-items: center; justify-content: center;
   padding: 1.1rem 1rem;
-  font-size: 0.72rem; font-weight: 500;
+  font-size: 0.75rem; font-weight: 500;
   text-transform: uppercase; letter-spacing: 0.13em;
   color: rgba(255,255,255,0.65);
   border-bottom: 2px solid transparent;
   transition: all 0.22s ease;
   background: none;
 }
-.nav-tab i { font-size: 1.35rem; display: block; line-height: 1; }
 .nav-tab .ti { display: none; }
 .nav-tab:hover { color: #fff; background: rgba(255,255,255,0.08); }
 .nav-tab.active {
@@ -293,8 +291,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   width: 44px; height: 44px;
   border-radius: var(--r-sm);
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem; margin-bottom: 1rem;
+  font-size: 1.5rem; margin-bottom: 1rem;
   background: var(--burg-bg);
+  color: var(--burg);
 }
 .card h3 { font-size: 1rem; margin-bottom: 0.4rem; color: var(--dark); }
 .card p  { font-size: 0.88rem; }
@@ -757,10 +756,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
   </div>
   <nav class="nav-tabs" role="tablist" aria-label="Secciones principales">
-    <button class="nav-tab active" onclick="showSection('intro')" data-section="intro" role="tab" aria-selected="true"><i class="ph-light ph-article" aria-hidden="true"></i>Introducción</button>
-    <button class="nav-tab" onclick="showSection('conductas')" data-section="conductas" role="tab" aria-selected="false"><i class="ph-light ph-warning" aria-hidden="true"></i>Conductas</button>
-    <button class="nav-tab" onclick="showSection('tipos')" data-section="tipos" role="tab" aria-selected="false"><i class="ph-light ph-magnifying-glass" aria-hidden="true"></i>Tipos</button>
-    <button class="nav-tab" onclick="showSection('medidas')" data-section="medidas" role="tab" aria-selected="false"><i class="ph-light ph-shield-check" aria-hidden="true"></i>Medidas</button>
+    <button class="nav-tab active" onclick="showSection('intro')" data-section="intro" role="tab" aria-selected="true">Introducción</button>
+    <button class="nav-tab" onclick="showSection('conductas')" data-section="conductas" role="tab" aria-selected="false">Conductas</button>
+    <button class="nav-tab" onclick="showSection('tipos')" data-section="tipos" role="tab" aria-selected="false">Tipos</button>
+    <button class="nav-tab" onclick="showSection('medidas')" data-section="medidas" role="tab" aria-selected="false">Medidas</button>
+    <button class="nav-tab" onclick="showSection('test')" data-section="test" role="tab" aria-selected="false">Mini-test</button>
+    <button class="nav-tab" onclick="showSection('game')" data-section="game" role="tab" aria-selected="false">Decisiones</button>
   </nav>
 </nav>
 
@@ -818,7 +819,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <section id="section-intro" class="section active">
 <div class="section-chapter">
   <div class="chapter-inner">
-    <i class="ph-light ph-article chapter-icon" aria-hidden="true"></i>
     <span class="sec-tag">Sección 1</span>
     <h2>Introducción</h2>
     <p class="sec-desc">El compromiso del COSCYL con la dignidad de toda la comunidad educativa: derechos, principios y definición del acoso sexual.</p>
@@ -829,22 +829,22 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
   <div class="cards-grid">
     <div class="card">
-      <div class="card-ico">🎯</div>
+      <div class="card-ico"><i class="ph-light ph-prohibit" aria-hidden="true"></i></div>
       <h3>Tolerancia cero</h3>
       <p>El COSCYL declara tolerancia <strong style="color:var(--burg)">cero</strong> ante cualquier conducta de acoso sexual. Tu dignidad e integridad son irrenunciables.</p>
     </div>
     <div class="card">
-      <div class="card-ico">👥</div>
+      <div class="card-ico"><i class="ph-light ph-users-three" aria-hidden="true"></i></div>
       <h3>¿A quién aplica?</h3>
       <p>A todo el personal docente y administrativo, alumnado y personas colaboradoras externas, con independencia de su vínculo contractual.</p>
     </div>
     <div class="card">
-      <div class="card-ico">🔒</div>
+      <div class="card-ico"><i class="ph-light ph-lock-key" aria-hidden="true"></i></div>
       <h3>Confidencialidad total</h3>
       <p>Confidencialidad, respeto a la dignidad, protección frente a represalias y presunción de inocencia durante todo el proceso.</p>
     </div>
     <div class="card">
-      <div class="card-ico">⚖️</div>
+      <div class="card-ico"><i class="ph-light ph-scales" aria-hidden="true"></i></div>
       <h3>Obligatorio para todos</h3>
       <p>El protocolo es de obligado cumplimiento para todo el personal, alumnado y personas externas que colaboren con el COSCYL.</p>
     </div>
@@ -862,7 +862,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
   <div class="two-col" style="margin-top:1.25rem">
     <div class="card">
-      <div class="card-ico">📌</div>
+      <div class="card-ico"><i class="ph-light ph-hand-heart" aria-hidden="true"></i></div>
       <h3>Principios clave</h3>
       <ul style="padding-left:1.1rem;margin-top:0.5rem">
         <li style="margin-bottom:0.4rem;color:var(--mid);font-size:0.88rem">Toda persona tiene derecho a un entorno libre de hostigamiento</li>
@@ -872,7 +872,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       </ul>
     </div>
     <div class="card">
-      <div class="card-ico">🎯</div>
+      <div class="card-ico"><i class="ph-light ph-target" aria-hidden="true"></i></div>
       <h3>Objetivos del protocolo</h3>
       <ul style="padding-left:1.1rem;margin-top:0.5rem">
         <li style="margin-bottom:0.4rem;color:var(--mid);font-size:0.88rem">Prevenir, detectar y erradicar el acoso en el conservatorio</li>
@@ -890,7 +890,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <section id="section-conductas" class="section">
 <div class="section-chapter">
   <div class="chapter-inner">
-    <i class="ph-light ph-warning chapter-icon" aria-hidden="true"></i>
     <span class="sec-tag">Sección 2</span>
     <h2>Conductas constitutivas de acoso sexual</h2>
     <p class="sec-desc">Aprende a identificar cada tipo de comportamiento. Los ejemplos son orientativos, no exhaustivos: cualquier conducta que atente contra tu dignidad puede ser acoso.</p>
@@ -1033,7 +1032,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <section id="section-tipos" class="section">
 <div class="section-chapter">
   <div class="chapter-inner">
-    <i class="ph-light ph-magnifying-glass chapter-icon" aria-hidden="true"></i>
     <span class="sec-tag">Sección 3</span>
     <h2>Tipos de acoso sexual</h2>
     <p class="sec-desc">Entiende las diferencias entre las distintas formas de acoso para identificarlas mejor en tu entorno.</p>
@@ -1100,12 +1098,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <div class="acc-body">
         <div class="two-col" style="margin-top:0.5rem">
           <div class="card">
-            <div class="card-ico">⬇️</div>
+            <div class="card-ico"><i class="ph-light ph-arrow-circle-down" aria-hidden="true"></i></div>
             <h3>Descendente</h3>
             <p>La persona acosadora <strong>ocupa un cargo superior</strong>: profesores/as, tutores/as, directores/as. Es el más frecuente y el que conlleva mayor abuso de autoridad.</p>
           </div>
           <div class="card">
-            <div class="card-ico">⬆️</div>
+            <div class="card-ico"><i class="ph-light ph-arrow-circle-up" aria-hidden="true"></i></div>
             <h3>Ascendente</h3>
             <p>La persona acosadora <strong>ocupa un cargo inferior</strong> al de la víctima. Menos frecuente, pero igualmente protegido por el protocolo.</p>
           </div>
@@ -1132,7 +1130,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <section id="section-medidas" class="section">
 <div class="section-chapter">
   <div class="chapter-inner">
-    <i class="ph-light ph-shield-check chapter-icon" aria-hidden="true"></i>
     <span class="sec-tag">Sección 4</span>
     <h2>Medidas: prevención y actuación</h2>
     <p class="sec-desc">Qué hace el COSCYL para protegerte y qué puedes hacer si vives o presencias una situación de acoso.</p>
@@ -1143,10 +1140,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
   <h3 style="margin-bottom:1rem">4.1 Medidas preventivas</h3>
   <div class="cards-grid">
-    <div class="card"><div class="card-ico">📢</div><h3>Sensibilización</h3><p>Difusión del protocolo, campañas de sensibilización y talleres sobre igualdad en el conservatorio.</p></div>
-    <div class="card"><div class="card-ico">🎓</div><h3>Formación anual</h3><p>Formación específica en prevención del acoso y comunicación respetuosa para todo el personal.</p></div>
-    <div class="card"><div class="card-ico">📄</div><h3>Compromiso institucional</h3><p>Cláusulas específicas en contratos y convenios con todas las entidades externas que colaboren.</p></div>
-    <div class="card"><div class="card-ico">🔐</div><h3>Canales seguros</h3><p>Canales seguros y confidenciales para denuncias y consultas, sin riesgo de represalias.</p></div>
+    <div class="card"><div class="card-ico"><i class="ph-light ph-megaphone" aria-hidden="true"></i></div><h3>Sensibilización</h3><p>Difusión del protocolo, campañas de sensibilización y talleres sobre igualdad en el conservatorio.</p></div>
+    <div class="card"><div class="card-ico"><i class="ph-light ph-graduation-cap" aria-hidden="true"></i></div><h3>Formación anual</h3><p>Formación específica en prevención del acoso y comunicación respetuosa para todo el personal.</p></div>
+    <div class="card"><div class="card-ico"><i class="ph-light ph-file-text" aria-hidden="true"></i></div><h3>Compromiso institucional</h3><p>Cláusulas específicas en contratos y convenios con todas las entidades externas que colaboren.</p></div>
+    <div class="card"><div class="card-ico"><i class="ph-light ph-chat-circle-dots" aria-hidden="true"></i></div><h3>Canales seguros</h3><p>Canales seguros y confidenciales para denuncias y consultas, sin riesgo de represalias.</p></div>
   </div>
 
   <div class="divider"></div>
@@ -1257,7 +1254,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <section id="section-test" class="section">
 <div class="section-chapter" style="background:linear-gradient(135deg,#1e6b8a 0%,#154f6b 100%)">
   <div class="chapter-inner">
-    <i class="ph-light ph-brain chapter-icon" aria-hidden="true"></i>
     <span class="sec-tag">Actividad interactiva</span>
     <h2>Mini-test: ¿Reconoces las señales?</h2>
     <p class="sec-desc">10 preguntas sobre el acoso sexual en entornos musicales. Pon a prueba tu conocimiento y recibe feedback personalizado.</p>
@@ -1300,7 +1296,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <section id="section-game" class="section">
 <div class="section-chapter" style="background:linear-gradient(135deg,#1e6b4a 0%,#155c3e 100%)">
   <div class="chapter-inner">
-    <i class="ph-light ph-git-branch chapter-icon" aria-hidden="true"></i>
     <span class="sec-tag">Actividad interactiva</span>
     <h2>Decisiones: ¿Qué harías en esta situación?</h2>
     <p class="sec-desc">Tres escenarios reales del ámbito musical. Elige cómo actuarías y descubre las consecuencias de cada decisión.</p>
@@ -1394,7 +1389,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <section id="section-marco" class="section">
 <div class="section-chapter" style="background:linear-gradient(135deg,#3b3270 0%,#251e4a 100%)">
   <div class="chapter-inner">
-    <i class="ph-light ph-scales chapter-icon" aria-hidden="true"></i>
     <span class="sec-tag">Sección 7</span>
     <h2>Marco normativo</h2>
     <p class="sec-desc">Las leyes que respaldan este protocolo, explicadas de forma clara. Tu protección está respaldada por la ley.</p>
