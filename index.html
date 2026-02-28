@@ -1312,7 +1312,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <button class="scene-card" onclick="startScene(2)">
         <span class="scene-ico"><i class="ph-light ph-music-notes" aria-hidden="true"></i></span>
         Escenario 2
-        <span class="scene-sub">Ambiente en el ensemble</span>
+        <span class="scene-sub">Ambiente en el música de cámara</span>
       </button>
       <button class="scene-card" onclick="startScene(3)">
         <span class="scene-ico"><i class="ph-light ph-graduation-cap" aria-hidden="true"></i></span>
@@ -1344,13 +1344,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
     <div id="scene-2" class="game-scene">
       <span class="sec-tag tag-purple" style="display:inline-block;margin-bottom:0.5rem">Escenario 2</span>
-      <h3 style="font-family:'Playfair Display',serif;margin-bottom:0.25rem">🎵 Ambiente tóxico en el ensemble</h3>
-      <div class="narrative">En tu grupo de música de cámara, un compañero hace constantemente chistes sexuales sobre los cuerpos de las compañeras y comparte memes de contenido sexual en el grupo de WhatsApp del ensemble. El director/a los ve y se ríe. Algunas compañeras están visiblemente incómodas pero no dicen nada. Tú también te sientes mal en cada ensayo.</div>
+      <h3 style="font-family:'Playfair Display',serif;margin-bottom:0.25rem">🎵 Ambiente tóxico en el música de cámara</h3>
+      <div class="narrative">En tu grupo de música de cámara, un compañero hace constantemente chistes sexuales sobre los cuerpos de las compañeras y comparte memes de contenido sexual en el grupo de WhatsApp del música de cámara. El director/a los ve y se ríe. Algunas compañeras están visiblemente incómodas pero no dicen nada. Tú también te sientes mal en cada ensayo.</div>
       <p class="scene-q">¿Qué haces?</p>
       <div class="choices" id="ch-2">
         <button class="choice" onclick="choose(2,'a')">A) Pides al compañero que pare, en el momento, delante de todos</button>
         <button class="choice" onclick="choose(2,'b')">B) Hablas con las personas afectadas para actuar juntos/as y lo denunciáis a la Comisión de Igualdad</button>
-        <button class="choice" onclick="choose(2,'c')">C) Abandonas el ensemble para evitar la situación</button>
+        <button class="choice" onclick="choose(2,'c')">C) Abandonas el música de cámara para evitar la situación</button>
         <button class="choice" onclick="choose(2,'d')">D) Capturas los mensajes del grupo y los reportas como acoso sexual ambiental</button>
       </div>
       <div class="consequence" id="cons-2"></div>
@@ -1670,7 +1670,7 @@ function openTest() {
 /* ===== GAME ===== */
 const gcons = {
   1:{a:{t:'good',tx:"✅ Buscar apoyo te protege. Las personas de confianza pueden acompañarte en el proceso de denuncia y ayudarte a valorar la situación con perspectiva."},b:{t:'bad',tx:"⚠️ Aceptar por miedo a las notas es exactamente lo que busca el acosador. El protocolo garantiza que tu situación académica no puede verse perjudicada por denunciar."},c:{t:'good',tx:"✅ Marcar límites claramente y guardar evidencias son dos pasos clave. Las capturas de pantalla son fundamentales si decides denunciar formalmente."},d:{t:'bad',tx:"⚠️ Ignorar la situación raramente la resuelve. El acoso tiende a escalar. Minimizar lo que sientes es una respuesta normal, pero no te protege."}},
-  2:{a:{t:'neutral',tx:"💡 Puede funcionar, pero confrontar en público puede generar resistencia. Si el director/a no te respalda, tu posición se complica. Considera también la denuncia formal."},b:{t:'good',tx:"✅ La acción colectiva es muy efectiva y más difícil de ignorar. Con varias testimonios, la Comisión de Igualdad tomará la situación más en serio."},c:{t:'bad',tx:"⚠️ Abandonar el ensemble significa que el acoso 'gana'. Tienes tanto derecho a ese espacio como cualquier otra persona. Nunca deberías ser tú quien tenga que marcharse."},d:{t:'good',tx:"✅ Documentar los mensajes como evidencia es clave. El acoso ambiental digital deja rastro. Reportarlo formalmente obliga a la institución a actuar."}},
+  2:{a:{t:'neutral',tx:"💡 Puede funcionar, pero confrontar en público puede generar resistencia. Si el director/a no te respalda, tu posición se complica. Considera también la denuncia formal."},b:{t:'good',tx:"✅ La acción colectiva es muy efectiva y más difícil de ignorar. Con varias testimonios, la Comisión de Igualdad tomará la situación más en serio."},c:{t:'bad',tx:"⚠️ Abandonar el música de cámara significa que el acoso 'gana'. Tienes tanto derecho a ese espacio como cualquier otra persona. Nunca deberías ser tú quien tenga que marcharse."},d:{t:'good',tx:"✅ Documentar los mensajes como evidencia es clave. El acoso ambiental digital deja rastro. Reportarlo formalmente obliga a la institución a actuar."}},
   3:{a:{t:'bad',tx:"⚠️ Acceder al chantaje no garantiza la nota y te sitúa en mayor vulnerabilidad. El acosador/a tendrá más poder. Nunca debes ceder ante el chantaje sexual."},b:{t:'good',tx:"✅ Perfecto. Exigir canales oficiales es una protección. La denuncia inmediata activa el protocolo y protege tu calificación además de a otras posibles víctimas."},c:{t:'neutral',tx:"💡 Cambiar de tutor/a te protege a ti, pero no a otras personas. Denunciar aunque cambies es importante para poner fin a un comportamiento que puede ser sistemático."},d:{t:'good',tx:"✅ Actuar ese mismo día activa la protección institucional. Cuanto antes se actúa, más fácil es reconstruir los hechos y garantizar tu protección."}}
 };
 const tmap = {good:'cons-good', bad:'cons-bad', neutral:'cons-neutral'};
