@@ -548,8 +548,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* ===== GAME ===== */
 .scene-selector {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(185px,1fr));
-  gap: 1rem; margin-top: 1.5rem;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 240px));
+  justify-content: center;
+  gap: 1rem; margin: 1.5rem auto 0;
 }
 .scene-card {
   padding: 1.4rem;
@@ -565,7 +566,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: var(--burg); transform: translateY(-4px);
   box-shadow: var(--shadow-sm);
 }
-.scene-ico { font-size: 2.2rem; display: block; margin-bottom: 0.65rem; }
+.scene-ico { font-size: 2.2rem; display: block; margin-bottom: 0.65rem; color: var(--burg); opacity: 0.85; }
 .scene-sub { font-size: 0.78rem; color: var(--muted); font-weight: 400; display: block; margin-top: 0.2rem; }
 .game-scene { display: none; animation: fadeUp 0.35s ease; }
 .game-scene.active { display: block; }
@@ -1307,17 +1308,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     <p style="margin:0 0 1.5rem;color:var(--mid)">Tres escenarios reales del ámbito musical. Elige cómo actuarías y descubre las consecuencias de cada decisión.</p>
     <div class="scene-selector">
       <button class="scene-card" onclick="startScene(1)">
-        <span class="scene-ico">📱</span>
+        <span class="scene-ico"><i class="ph-light ph-device-mobile" aria-hidden="true"></i></span>
         Escenario 1
         <span class="scene-sub">Mensajes del profesor</span>
       </button>
       <button class="scene-card" onclick="startScene(2)">
-        <span class="scene-ico">🎵</span>
+        <span class="scene-ico"><i class="ph-light ph-music-notes" aria-hidden="true"></i></span>
         Escenario 2
         <span class="scene-sub">Ambiente en el ensemble</span>
       </button>
       <button class="scene-card" onclick="startScene(3)">
-        <span class="scene-ico">🎓</span>
+        <span class="scene-ico"><i class="ph-light ph-graduation-cap" aria-hidden="true"></i></span>
         Escenario 3
         <span class="scene-sub">Presión sobre las notas</span>
       </button>
