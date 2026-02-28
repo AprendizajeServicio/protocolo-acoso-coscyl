@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/light/style.css">
 <style>
 /* ===== RESET & TOKENS ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -104,15 +105,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 #main-nav.scrolled .nav-tabs { border-top-color: var(--border); }
 .nav-tab {
   flex: 1; max-width: 220px;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 0.3rem;
   padding: 1.1rem 1rem;
-  font-size: 0.75rem; font-weight: 500;
+  font-size: 0.72rem; font-weight: 500;
   text-transform: uppercase; letter-spacing: 0.13em;
   color: rgba(255,255,255,0.65);
   border-bottom: 2px solid transparent;
   transition: all 0.22s ease;
   background: none;
 }
+.nav-tab i { font-size: 1.35rem; display: block; line-height: 1; }
 .nav-tab .ti { display: none; }
 .nav-tab:hover { color: #fff; background: rgba(255,255,255,0.08); }
 .nav-tab.active {
@@ -642,6 +645,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   border-color: rgba(255,255,255,0.4);
   color: #fff;
 }
+.chapter-icon {
+  font-size: 2.4rem; display: block;
+  color: rgba(255,255,255,0.92);
+  margin-bottom: 0.55rem; line-height: 1;
+}
 .section-chapter h2 { color: #fff; margin: 0.45rem 0 0; }
 .section-chapter .sec-desc {
   color: rgba(255,255,255,0.87);
@@ -749,10 +757,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
   </div>
   <nav class="nav-tabs" role="tablist" aria-label="Secciones principales">
-    <button class="nav-tab active" onclick="showSection('intro')" data-section="intro" role="tab" aria-selected="true">Introducción</button>
-    <button class="nav-tab" onclick="showSection('conductas')" data-section="conductas" role="tab" aria-selected="false">Conductas</button>
-    <button class="nav-tab" onclick="showSection('tipos')" data-section="tipos" role="tab" aria-selected="false">Tipos</button>
-    <button class="nav-tab" onclick="showSection('medidas')" data-section="medidas" role="tab" aria-selected="false">Medidas</button>
+    <button class="nav-tab active" onclick="showSection('intro')" data-section="intro" role="tab" aria-selected="true"><i class="ph-light ph-article" aria-hidden="true"></i>Introducción</button>
+    <button class="nav-tab" onclick="showSection('conductas')" data-section="conductas" role="tab" aria-selected="false"><i class="ph-light ph-warning" aria-hidden="true"></i>Conductas</button>
+    <button class="nav-tab" onclick="showSection('tipos')" data-section="tipos" role="tab" aria-selected="false"><i class="ph-light ph-magnifying-glass" aria-hidden="true"></i>Tipos</button>
+    <button class="nav-tab" onclick="showSection('medidas')" data-section="medidas" role="tab" aria-selected="false"><i class="ph-light ph-shield-check" aria-hidden="true"></i>Medidas</button>
   </nav>
 </nav>
 
@@ -810,6 +818,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <section id="section-intro" class="section active">
 <div class="section-chapter">
   <div class="chapter-inner">
+    <i class="ph-light ph-article chapter-icon" aria-hidden="true"></i>
     <span class="sec-tag">Sección 1</span>
     <h2>Introducción</h2>
     <p class="sec-desc">El compromiso del COSCYL con la dignidad de toda la comunidad educativa: derechos, principios y definición del acoso sexual.</p>
@@ -881,6 +890,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <section id="section-conductas" class="section">
 <div class="section-chapter">
   <div class="chapter-inner">
+    <i class="ph-light ph-warning chapter-icon" aria-hidden="true"></i>
     <span class="sec-tag">Sección 2</span>
     <h2>Conductas constitutivas de acoso sexual</h2>
     <p class="sec-desc">Aprende a identificar cada tipo de comportamiento. Los ejemplos son orientativos, no exhaustivos: cualquier conducta que atente contra tu dignidad puede ser acoso.</p>
@@ -1023,6 +1033,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <section id="section-tipos" class="section">
 <div class="section-chapter">
   <div class="chapter-inner">
+    <i class="ph-light ph-magnifying-glass chapter-icon" aria-hidden="true"></i>
     <span class="sec-tag">Sección 3</span>
     <h2>Tipos de acoso sexual</h2>
     <p class="sec-desc">Entiende las diferencias entre las distintas formas de acoso para identificarlas mejor en tu entorno.</p>
@@ -1121,6 +1132,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <section id="section-medidas" class="section">
 <div class="section-chapter">
   <div class="chapter-inner">
+    <i class="ph-light ph-shield-check chapter-icon" aria-hidden="true"></i>
     <span class="sec-tag">Sección 4</span>
     <h2>Medidas: prevención y actuación</h2>
     <p class="sec-desc">Qué hace el COSCYL para protegerte y qué puedes hacer si vives o presencias una situación de acoso.</p>
@@ -1245,8 +1257,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <section id="section-test" class="section">
 <div class="section-chapter" style="background:linear-gradient(135deg,#1e6b8a 0%,#154f6b 100%)">
   <div class="chapter-inner">
+    <i class="ph-light ph-brain chapter-icon" aria-hidden="true"></i>
     <span class="sec-tag">Actividad interactiva</span>
-    <h2>🧠 Mini-test: ¿Reconoces las señales?</h2>
+    <h2>Mini-test: ¿Reconoces las señales?</h2>
     <p class="sec-desc">10 preguntas sobre el acoso sexual en entornos musicales. Pon a prueba tu conocimiento y recibe feedback personalizado.</p>
   </div>
   <span class="chapter-num" aria-hidden="true">05</span>
@@ -1287,8 +1300,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <section id="section-game" class="section">
 <div class="section-chapter" style="background:linear-gradient(135deg,#1e6b4a 0%,#155c3e 100%)">
   <div class="chapter-inner">
+    <i class="ph-light ph-git-branch chapter-icon" aria-hidden="true"></i>
     <span class="sec-tag">Actividad interactiva</span>
-    <h2>🎯 Decisiones: ¿Qué harías en esta situación?</h2>
+    <h2>Decisiones: ¿Qué harías en esta situación?</h2>
     <p class="sec-desc">Tres escenarios reales del ámbito musical. Elige cómo actuarías y descubre las consecuencias de cada decisión.</p>
   </div>
   <span class="chapter-num" aria-hidden="true">06</span>
@@ -1380,6 +1394,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <section id="section-marco" class="section">
 <div class="section-chapter" style="background:linear-gradient(135deg,#3b3270 0%,#251e4a 100%)">
   <div class="chapter-inner">
+    <i class="ph-light ph-scales chapter-icon" aria-hidden="true"></i>
     <span class="sec-tag">Sección 7</span>
     <h2>Marco normativo</h2>
     <p class="sec-desc">Las leyes que respaldan este protocolo, explicadas de forma clara. Tu protección está respaldada por la ley.</p>
