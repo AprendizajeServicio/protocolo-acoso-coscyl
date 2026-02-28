@@ -6,7 +6,7 @@
 <title>Protocolo COSCYL · Entorno Seguro en la Música</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 /* ===== RESET & TOKENS ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,7 +33,7 @@
 }
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-family: 'Roboto', system-ui, sans-serif;
   background: var(--cream);
   color: var(--dark);
   min-height: 100vh;
@@ -41,7 +41,7 @@ body {
   font-size: 16px;
   line-height: 1.6;
 }
-h1,h2,h3,h4 { font-family: 'Playfair Display', Georgia, serif; color: var(--dark); line-height: 1.2; }
+h1,h2,h3,h4 { font-family: 'Quicksand', system-ui, sans-serif; color: var(--dark); line-height: 1.2; }
 h1 { font-size: clamp(2rem,5vw,3.4rem); font-weight: 700; }
 h2 { font-size: clamp(1.4rem,3vw,2.1rem); font-weight: 700; }
 h3 { font-size: 1.15rem; font-weight: 600; }
@@ -73,7 +73,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   gap: 1rem;
 }
 .nav-logo {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 0.95rem; font-weight: 700;
   color: rgba(255,255,255,0.9);
   white-space: nowrap; flex-shrink: 0;
@@ -227,7 +227,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   backdrop-filter: blur(8px);
 }
 .hero-stat .num {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 1.7rem; font-weight: 700; color: #fff; display: block;
 }
 .hero-stat .lbl { font-size: 0.77rem; color: rgba(255,255,255,0.75); font-weight: 500; }
@@ -392,7 +392,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   background: var(--burg);
   border-radius: var(--r);
   color: #fff;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 1.05rem; font-weight: 700;
   box-shadow: var(--shadow);
 }
@@ -501,7 +501,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transition: width 0.5s ease;
 }
 .test-qnum { font-size: 0.8rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
-.test-q    { font-size: 1.1rem; font-family: 'Playfair Display', serif; color: var(--dark); margin: 0.6rem 0 1.4rem; font-weight: 600; }
+.test-q    { font-size: 1.1rem; font-family: 'Quicksand', sans-serif; color: var(--dark); margin: 0.6rem 0 1.4rem; font-weight: 600; }
 .test-opts { display: flex; flex-direction: column; gap: 0.65rem; }
 .test-opt {
   display: flex; align-items: center; gap: 0.85rem;
@@ -534,10 +534,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* Result */
 .result-wrap { text-align: center; padding: 0.5rem 0; }
 .result-score {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 4.5rem; font-weight: 700; color: var(--burg); line-height: 1;
 }
-.result-level { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--dark); margin: 0.5rem 0 0.75rem; font-style: italic; }
+.result-level { font-family: 'Quicksand', sans-serif; font-size: 1.3rem; color: var(--dark); margin: 0.5rem 0 0.75rem; font-style: italic; }
 .result-tips ul { list-style: disc; padding-left: 1.2rem; text-align: left; margin-top: 1rem; }
 .result-tips li { font-size: 0.88rem; color: var(--mid); margin-bottom: 0.45rem; }
 .result-actions { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.75rem; flex-wrap: wrap; }
@@ -573,7 +573,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   margin: 1.25rem 0;
   font-size: 0.92rem; line-height: 1.8; color: var(--mid);
 }
-.scene-q { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 600; margin-bottom: 1rem; color: var(--dark); }
+.scene-q { font-family: 'Quicksand', sans-serif; font-size: 1.05rem; font-weight: 600; margin-bottom: 1rem; color: var(--dark); }
 .choices { display: flex; flex-direction: column; gap: 0.65rem; }
 .choice {
   padding: 0.9rem 1.25rem;
@@ -597,7 +597,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   padding: 1.3rem;
   margin-top: 1.25rem;
 }
-.reflection h4 { color: var(--burg); margin-bottom: 0.4rem; font-family: 'Playfair Display', serif; }
+.reflection h4 { color: var(--burg); margin-bottom: 0.4rem; font-family: 'Quicksand', sans-serif; }
 .reflection p  { font-size: 0.88rem; }
 
 /* ===== SECTION CHAPTER BANNERS ===== */
@@ -632,7 +632,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .chapter-num {
   position: absolute; right: 2.5rem; top: 50%;
   transform: translateY(-50%);
-  font-family: 'Playfair Display', serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 8rem; font-weight: 700; line-height: 1;
   color: rgba(255,255,255,0.11);
   pointer-events: none; user-select: none; z-index: 0;
@@ -672,7 +672,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   margin-bottom: 0.4rem;
 }
 .logos-footer-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 1rem; font-weight: 600;
   color: rgba(255,255,255,0.75);
   margin-bottom: 2rem;
