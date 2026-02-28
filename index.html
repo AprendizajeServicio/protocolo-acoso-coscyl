@@ -321,6 +321,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   gap: 0.75rem;
 }
 .acc-hd:hover { background: var(--cream); }
+.acc-hd i.ph-light { font-size: 1.15rem; color: var(--burg); flex-shrink: 0; opacity: 0.85; }
+.d-node h4 i.ph-light { font-size: 1rem; color: inherit; opacity: 0.8; margin-right: 0.3rem; }
 .acc-arr {
   width: 26px; height: 26px; flex-shrink: 0;
   border-radius: 50%;
@@ -901,7 +903,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   <div class="accordion">
     <div class="acc-item">
       <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>🗣️ 2.1 Conductas verbales</span><span class="acc-arr">▾</span>
+        <span><i class="ph-light ph-chat-dots" aria-hidden="true"></i> 2.1 Conductas verbales</span><span class="acc-arr">▾</span>
       </button>
       <div class="acc-body">
         <p>Comportamientos expresados a través de palabras, mensajes orales o escritos:</p>
@@ -921,7 +923,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
     <div class="acc-item">
       <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>👁️ 2.2 Conductas no verbales</span><span class="acc-arr">▾</span>
+        <span><i class="ph-light ph-eye" aria-hidden="true"></i> 2.2 Conductas no verbales</span><span class="acc-arr">▾</span>
       </button>
       <div class="acc-body">
         <p>Comportamientos expresados sin palabras pero igualmente hirientes:</p>
@@ -940,7 +942,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
     <div class="acc-item">
       <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>✋ 2.3 Comportamientos físicos</span><span class="acc-arr">▾</span>
+        <span><i class="ph-light ph-hand" aria-hidden="true"></i> 2.3 Comportamientos físicos</span><span class="acc-arr">▾</span>
       </button>
       <div class="acc-body">
         <p>Cualquier contacto físico no deseado de naturaleza sexual:</p>
@@ -958,7 +960,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
     <div class="acc-item">
       <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>🔇 2.4 Actuaciones de aislamiento</span><span class="acc-arr">▾</span>
+        <span><i class="ph-light ph-user-minus" aria-hidden="true"></i> 2.4 Actuaciones de aislamiento</span><span class="acc-arr">▾</span>
       </button>
       <div class="acc-body">
         <p>Estrategias para aislar y excluir a una persona de su entorno:</p>
@@ -980,7 +982,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
     <div class="acc-item">
       <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>💊 2.5 Actividades que afectan a la salud</span><span class="acc-arr">▾</span>
+        <span><i class="ph-light ph-heartbeat" aria-hidden="true"></i> 2.5 Actividades que afectan a la salud</span><span class="acc-arr">▾</span>
       </button>
       <div class="acc-body">
         <p>Conductas que dañan deliberadamente el bienestar físico o psíquico:</p>
@@ -997,7 +999,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
     <div class="acc-item">
       <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>🎭 2.6 Ataques a la reputación</span><span class="acc-arr">▾</span>
+        <span><i class="ph-light ph-warning-circle" aria-hidden="true"></i> 2.6 Ataques a la reputación</span><span class="acc-arr">▾</span>
       </button>
       <div class="acc-body">
         <p>Conductas que dañan la imagen personal o profesional:</p>
@@ -1042,19 +1044,19 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
   <div class="diagram-grid">
     <div class="d-node dn-burg">
-      <h4>🔄 Quid pro quo</h4>
+      <h4><i class="ph-light ph-arrows-clockwise" aria-hidden="true"></i> Quid pro quo</h4>
       <p>Chantaje sexual: favores a cambio de beneficios académicos o laborales. Siempre implica abuso de autoridad.</p>
     </div>
     <div class="d-node dn-purple">
-      <h4>🌫️ Acoso ambiental</h4>
+      <h4><i class="ph-light ph-cloud" aria-hidden="true"></i> Acoso ambiental</h4>
       <p>Entorno hostil creado por conductas de naturaleza sexual. Lo puede generar cualquier persona, sin importar su rango.</p>
     </div>
     <div class="d-node dn-mid">
-      <h4>↔️ Horizontal</h4>
+      <h4><i class="ph-light ph-arrows-horizontal" aria-hidden="true"></i> Horizontal</h4>
       <p>Entre compañeros/as del mismo nivel, sin diferencia jerárquica. Frecuente en clases de conjunto y grupos de WhatsApp.</p>
     </div>
     <div class="d-node dn-muted">
-      <h4>↕️ Vertical</h4>
+      <h4><i class="ph-light ph-arrows-vertical" aria-hidden="true"></i> Vertical</h4>
       <p>Con relación jerárquica. Descendente (superior acosa a inferior) o ascendente (inferior a superior, menos frecuente).</p>
     </div>
   </div>
@@ -1062,7 +1064,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   <div class="accordion" style="margin-top:2rem">
     <div class="acc-item">
       <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>🔄 Acoso "quid pro quo" o chantaje sexual</span><span class="acc-arr">▾</span>
+        <span><i class="ph-light ph-arrows-clockwise" aria-hidden="true"></i> Acoso "quid pro quo" o chantaje sexual</span><span class="acc-arr">▾</span>
       </button>
       <div class="acc-body">
         <p>Consiste en <strong>forzar a la víctima a elegir entre someterse a los requerimientos sexuales o perder beneficios</strong> relacionados con:</p>
@@ -1079,7 +1081,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
     <div class="acc-item">
       <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>🌫️ Acoso sexual ambiental</span><span class="acc-arr">▾</span>
+        <span><i class="ph-light ph-cloud" aria-hidden="true"></i> Acoso sexual ambiental</span><span class="acc-arr">▾</span>
       </button>
       <div class="acc-body">
         <p>La persona acosadora <strong>crea un entorno intimidatorio, hostil, degradante o humillante</strong> mediante actitudes y comportamientos indeseados de naturaleza sexual. Ejemplos:</p>
@@ -1093,7 +1095,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
     <div class="acc-item">
       <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>↕️ Acoso vertical: descendente y ascendente</span><span class="acc-arr">▾</span>
+        <span><i class="ph-light ph-arrows-down-up" aria-hidden="true"></i> Acoso vertical: descendente y ascendente</span><span class="acc-arr">▾</span>
       </button>
       <div class="acc-body">
         <div class="two-col" style="margin-top:0.5rem">
@@ -1112,7 +1114,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
     <div class="acc-item">
       <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>💻 Violencia digital o ciberviolencia</span><span class="acc-arr">▾</span>
+        <span><i class="ph-light ph-laptop" aria-hidden="true"></i> Violencia digital o ciberviolencia</span><span class="acc-arr">▾</span>
       </button>
       <div class="acc-body">
         <p>Cualquier conducta de acoso o agresión sexual mediante <strong>tecnologías de la información</strong>: mensajes de WhatsApp, redes sociales, email o publicación de imágenes íntimas sin consentimiento.</p>
@@ -1399,7 +1401,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   <div class="accordion">
     <div class="acc-item">
       <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>⚖️ Ley Orgánica 3/2007 — Igualdad efectiva entre mujeres y hombres</span>
+        <span><i class="ph-light ph-scales" aria-hidden="true"></i> Ley Orgánica 3/2007 — Igualdad efectiva entre mujeres y hombres</span>
         <span class="acc-arr">▾</span>
       </button>
       <div class="acc-body">
@@ -1408,7 +1410,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
     <div class="acc-item">
       <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>🎓 Ley Orgánica 2/2023 — Sistema Universitario (LOSU)</span>
+        <span><i class="ph-light ph-graduation-cap" aria-hidden="true"></i> Ley Orgánica 2/2023 — Sistema Universitario (LOSU)</span>
         <span class="acc-arr">▾</span>
       </button>
       <div class="acc-body">
@@ -1417,7 +1419,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
     <div class="acc-item">
       <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>🛡️ Ley 31/1995 — Prevención de Riesgos Laborales</span>
+        <span><i class="ph-light ph-shield" aria-hidden="true"></i> Ley 31/1995 — Prevención de Riesgos Laborales</span>
         <span class="acc-arr">▾</span>
       </button>
       <div class="acc-body">
@@ -1426,7 +1428,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
     <div class="acc-item">
       <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>🔐 RGPD y Ley Orgánica 3/2018 — Protección de datos</span>
+        <span><i class="ph-light ph-lock-key" aria-hidden="true"></i> RGPD y Ley Orgánica 3/2018 — Protección de datos</span>
         <span class="acc-arr">▾</span>
       </button>
       <div class="acc-body">
@@ -1435,7 +1437,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
     <div class="acc-item">
       <button class="acc-hd" onclick="toggleAcc(this)">
-        <span>🌍 Ley 1/2003 — Igualdad de oportunidades en Castilla y León</span>
+        <span><i class="ph-light ph-globe" aria-hidden="true"></i> Ley 1/2003 — Igualdad de oportunidades en Castilla y León</span>
         <span class="acc-arr">▾</span>
       </button>
       <div class="acc-body">
